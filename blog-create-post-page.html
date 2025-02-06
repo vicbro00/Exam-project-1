@@ -32,21 +32,18 @@
 
     <main>
         <h1>Signed in as: User Name</h1>
-        <div class="edit-form">
+        <div class="edit-form" id="createPost">
             <label for="blogTitle">Blog title:</label>
             <input type="text" id="blogTitle">
             <i class="fa-regular fa-square-check"></i>
-            <!-- <i class="fa-solid fa-square-check"></i> This one for after it is checked off-->
             <label for="blogContent">Blog content:</label>
-            <input type="text" id="blogContent">
+            <textarea id="blogContent" rows="5" required></textarea>
             <i class="fa-regular fa-square-check"></i>
-            <!-- <i class="fa-solid fa-square-check"></i> This one for after it is checked off-->
             <label for="blogImage">Blog image:</label>
             <input type="text" id="blogImage">
             <i class="fa-regular fa-square-check"></i>
-            <!-- <i class="fa-solid fa-square-check"></i> This one for after it is checked off-->
         </div>
-        <button class="confirm-btn">Confirm edits</button>
+        <button class="confirm-btn" type="submit">Confirm edits</button>
     </main>
 
     <footer>
@@ -63,5 +60,6 @@
         </div>
     </footer>
 
+    <script src="auth.js" defer></script>
 </body>
 </html>
