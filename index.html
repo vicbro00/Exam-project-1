@@ -30,16 +30,17 @@
                 <li><a href="/post-edit.html">All posts</li></a>
                 <li>Contact</li>
             </ul>
-            <button>Sign in</button>
+            <a href="account-login-page.html"><button id="signInBtn">Sign in</button></a>
         </nav>
-        <nav class="hamb-menu-logged-in" id="hambMenuLoggedIn">
+        <nav class="hamb-menu-logged-in hidden" id="hambMenuLoggedIn">
             <ul>
-                <li>Home</li>
-                <li>All posts</li>
-                <li>Edit posts</li>
-                <li>Contact</li>
+                <a href="index.html"><li>Home</li></a>
+                <a href="post.html"><li>All posts</li></a>
+                <a href="post-edit.html"><li>Edit posts</li></a>
+                <a href="blog-create-post-page.html"><li>Create posts</li></a>
             </ul>
-            <button>Sign out</button>
+            <button id="signOutBtn">Sign out</button>
+            <div id="responseMessage"></div>
         </nav>
         <h1><span class="blue">Hot</span>View <span class="blue">Labs</span></h1>
         <img src="images/Logo.png" alt="HotView Labs logo, with a blue chatbox and a cloud in the background.">
@@ -68,77 +69,7 @@
             <input type="search" id="search" name="search" value="Search...">
             <label for="search"></label>
         </div>
-
-        <div class="blog-grid" id="postsContainer">
-            <div class="blog-row">
-                <div class="blog">
-                    <h4>The Future of AI: Trends to Watch</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>Mastering JavaScript: Tips for Beginners</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>The Power of Data Visualization in Decision-Making</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-            </div>
-            <div class="blog-row">
-                <div class="blog">
-                    <h4>Building Responsive Web Apps: Best Practices</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>Cloud Computing: Transforming Modern Workflows</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>Why Cybersecurity is Everyone's Responsibility</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-            </div>
-            <div class="blog-row">
-                <div class="blog">
-                    <h4>Data Science 101: Key Skills to learn</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>APIs Explained: Connecting the Digital World</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>The Rise of Edge Computing in IT</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-            </div>
-            <div class="blog-row">
-                <div class="blog">
-                    <h4>Debugging like a Pro: Techniques for Developers</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>How Machine Learning is Revolutionizing Industries</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-                <div class="blog">
-                    <h4>Tech Trends to Watch</h4>
-                    <img class="blog-image" src="" alt="">
-                    <p>Read more</p>
-                </div>
-            </div>
-        </div>
+        <div class="blog-posts-container" id="blogPostsContainer"></div>
     </main>
 
     <footer>
@@ -158,7 +89,7 @@
     </footer>
 
     <script src="index.js" async></script>
+    <script src="api.js" defer></script>
     <script src="auth.js" defer></script>
-
 </body>
 </html>

@@ -17,7 +17,7 @@
             </ul>
             <button>Sign in</button>
         </nav>
-        <nav class="hamb-menu-logged-in">
+        <nav class="hamb-menu-logged-in hidden">
             <ul>
                 <li>Home</li>
                 <li>All posts</li>
@@ -32,14 +32,18 @@
 
     <main>
         <h1>Log into your profile here!</h1>
-        <form class="log-in-form" id="loginForm">
-            <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="Email...">
-            <label for="password">Password:</label>
-            <input type="password" id="password">
-            <button class="sign-in-btn" type="submit">Sign in</button>
+        <form action="/index.html" class="loginForm" id="loginForm" onsubmit="return login()">
+            <div class="input-group">
+                <label for="email" class="label">Email:</label>
+                <input type="email" id="email" placeholder="Email..." class="input">
+                <span class="error-message"></span>
+                <label for="password" class="label">Password:</label>
+                <input type="password" id="password" class="input">
+                <span class="error-message"></span>
+            </div>
+            <button onsubmit="return login()" id="signInBtn" class="sign-in-btn" type="submit">Sign in</button>
         </form>
-        <div id="responseMessage"></div>
+        <p id="responseMessage"></p>
     </main>
 
     <footer>
@@ -57,5 +61,6 @@
     </footer>
 
     <script src="auth.js" defer></script>
+    <script src="api.js" defer></script>
 </body>
 </html>
