@@ -1,110 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <script src="https://kit.fontawesome.com/7d33f7d3ef.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HotView Labs Homepage">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/7d33f7d3ef.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/basic-styling.css">
     <title>HotView Labs Post Public Page</title>
 </head>
 
 <body>
     <header>
-        <nav class="hamb-menu-logged-out">
+        <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+        <nav class="hamb-menu-logged-out" id="hambMenuLoggedOut">
             <ul>
-                <li>Home</li>
-                <li>All posts</li>
+                <li><a href="/index.html">Home</li></a>
+                <li><a href="/post-edit.html">All posts</li></a>
                 <li>Contact</li>
             </ul>
-            <button>Sign in</button>
+            <a href="account-login-page.html"><button id="signInBtn">Sign in</button></a>
         </nav>
-        <nav class="hamb-menu-logged-in">
+        <nav class="hamb-menu-logged-in hidden" id="hambMenuLoggedIn">
             <ul>
-                <li>Home</li>
-                <li>All posts</li>
-                <li>Edit posts</li>
-                <li>Contact</li>
+                <a href="index.html"><li>Home</li></a>
+                <a href="post.html"><li>All posts</li></a>
+                <a href="post-edit.html"><li>Edit posts</li></a>
+                <a href="blog-create-post-page.html"><li>Create posts</li></a>
             </ul>
-            <button>Sign out</button>
+            <button id="signOutBtn">Sign out</button>
+            <div id="responseMessage"></div>
         </nav>
-        <h1>HotView Labs</h1>
+        <h1><span class="blue">Hot</span>View <span class="blue">Labs</span></h1>
         <img src="images/Logo.png" alt="HotView Labs logo, with a blue chatbox and a cloud in the background.">
     </header>
 
     <main>
-        <!--Changes depending on the blog clicked-->    
-        <h1>The Rise of Quantum Computing Tech Developments</h1>
-        <h2>Written by: Chuck Smith</h2>
-        <img src="" alt="">
-        <div class="blog-text">
-            <p>
-                Artificial Intelligence (AI) has rapidly transformed from a niche field into a cornerstone of modern technology. Its applications span industries, 
-                revolutionizing how we work, communicate, and live. As AI continues to evolve, here are some key trends to watch for in the coming years.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                1. Generative AI Dominance
-                Generative AI, exemplified by models like GPT and DALL-E, is reshaping creativity and problem-solving. These systems can generate human-like text, create art, compose music, and even develop code. 
-                Future advancements will likely enhance their ability to understand context and produce more nuanced outputs, expanding their applications in industries such as media, entertainment, and education.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                2. AI-Powered Automation
-                Automation powered by AI is set to redefine workflows across sectors. In manufacturing, logistics, and healthcare, AI-driven robots and algorithms are improving efficiency and reducing costs. 
-                Beyond traditional automation, AI will enable adaptive systems capable of learning and optimizing processes in real-time, leading to smarter factories, supply chains, and service delivery.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                3. Ethical AI and Regulation
-                As AI becomes more pervasive, ethical concerns are gaining attention. Issues like bias, privacy, and accountability are driving the development of frameworks to ensure responsible AI use. 
-                Governments and organizations are working on regulations to balance innovation with ethical safeguards, ensuring AI serves humanity without causing harm.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                4. AI in Healthcare
-                Healthcare is witnessing an AI revolution, from diagnostic tools and personalized treatment plans to drug discovery. AI systems are being trained to analyze complex medical data, detect diseases earlier, and suggest tailored therapies. 
-                The integration of AI with wearable technology could enable real-time health monitoring, empowering individuals to take proactive control of their well-being.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                5. AI and Climate Change
-                AI’s potential to combat climate change is immense. Machine learning algorithms are being used to model climate patterns, optimize renewable energy production, and reduce energy consumption. 
-                AI-powered systems can also enhance sustainability in industries like agriculture and transportation, contributing to a greener future.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                6. Enhanced Natural Language Processing (NLP)
-                NLP technologies are becoming increasingly sophisticated, enabling machines to understand and respond to human language more effectively. 
-                This progress will drive advancements in virtual assistants, customer service bots, and language translation tools, making interactions with AI more seamless and intuitive.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                7. Edge AI and Decentralization
-                Edge AI refers to running AI algorithms locally on devices rather than relying on cloud-based systems. This trend reduces latency, enhances data privacy, and enables AI applications in areas with limited connectivity. 
-                As hardware becomes more powerful, edge AI will expand into autonomous vehicles, IoT devices, and smart cities.                           
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                8. AI for Creativity and Collaboration
-                AI is not just automating tasks; it’s becoming a collaborator in creative endeavors. Tools that assist in writing, design, and music composition are empowering creators to explore new possibilities. 
-                Future developments may see AI functioning as a true partner, co-creating alongside humans in innovative ways.
-            </p>
-        </div>
-        <div class="blog-text">
-            <p>
-                Conclusion
-                The future of AI is both exciting and complex, promising to redefine industries and reshape society. While technological advancements bring immense potential, they also necessitate thoughtful consideration of ethical and societal implications. 
-                By keeping an eye on these trends, businesses and individuals can prepare for a world where AI plays an increasingly central role in our lives.
-            </p>
-        </div>
-        <h2>Publish date: 12.08.2014</h2>
+        <div id="blogGrid"></div>
     </main>
 
     <footer>
@@ -123,5 +65,8 @@
 
     <script src="auth.js" defer></script>
     <script src="api.js" defer></script>
+    <script src="edit.js" defer></script>
+    <script src="create.js" defer></script>
+    <script src="ui.js" defer></script>
 </body>
 </html>
