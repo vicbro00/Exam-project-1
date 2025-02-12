@@ -10,14 +10,19 @@ const hambMenuLoggedOut = document.getElementById('hambMenuLoggedOut');
 const hambMenuLoggedIn = document.getElementById('hambMenuLoggedIn');
 const logoutButton = document.querySelector('.hamb-menu-logged-in button');
 
-// Toggle menu visibility based on login status
+//Toggle menu
 function toggleMenu() {
-    const token = localStorage.getItem('token');
-    hambMenuLoggedOut.style.display = token ? 'none' : 'block';
-    hambMenuLoggedIn.style.display = token ? 'block' : 'none';
+    const jwt = localStorage.getItem('jwt'); // Get JWT token again when toggling
+    if (jwt) {
+        hambMenuLoggedOut.style.display = 'none';
+        hambMenuLoggedIn.style.display = 'block';
+    } else {
+        hambMenuLoggedOut.style.display = 'block';
+        hambMenuLoggedIn.style.display = 'none';
+    }
 }
 
-// Handle hamburger icon click
+//Toggle menu with hamburger icon
 function handleHamburgerClick(event) {
     event.stopPropagation();
     if (hambMenuLoggedOut.style.display === 'block' || hambMenuLoggedIn.style.display === 'block') {
@@ -26,6 +31,20 @@ function handleHamburgerClick(event) {
     } else {
         toggleMenu();
     }
+}
+
+function signOut() {
+    localStorage.removeItem('jwt');
+    
+    hambMenuLoggedOut.style.display = 'block';
+    hambMenuLoggedIn.style.display = 'none';
+    
+    alert("You are now signed out.");
+}
+
+const signOutButton = document.getElementById('signOutBtn');
+if (signOutButton) {
+    signOutButton.addEventListener('click', signOut);
 }
 
 nextBtn.addEventListener('click', () => carouselContainer.scrollLeft += SLIDE_WIDTH);

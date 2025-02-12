@@ -9,24 +9,26 @@
 
 <body>
     <header>
-        <nav class="hamb-menu-logged-out">
+        <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+        <nav class="hamb-menu-logged-out" id="hambMenuLoggedOut">
             <ul>
-                <li>Home</li>
-                <li>All posts</li>
+                <li><a href="/index.html">Home</li></a>
+                <li><a href="/post-edit.html">All posts</li></a>
                 <li>Contact</li>
             </ul>
-            <button>Sign in</button>
+            <a href="account-login-page.html"><button id="signInBtn">Sign in</button></a>
         </nav>
-        <nav class="hamb-menu-logged-in hidden">
+        <nav class="hamb-menu-logged-in hidden" id="hambMenuLoggedIn">
             <ul>
-                <li>Home</li>
-                <li>All posts</li>
-                <li>Edit posts</li>
-                <li>Contact</li>
+                <a href="index.html"><li>Home</li></a>
+                <a href="post.html"><li>All posts</li></a>
+                <a href="post-edit.html"><li>Edit posts</li></a>
+                <a href="blog-create-post-page.html"><li>Create posts</li></a>
             </ul>
-            <button>Sign out</button>
+            <button id="signOutBtn">Sign out</button>
+            <div id="responseMessage"></div>
         </nav>
-        <h1>HotView Labs</h1>
+        <h1><span class="blue">Hot</span>View <span class="blue">Labs</span></h1>
         <img src="images/Logo.png" alt="HotView Labs logo, with a blue chatbox and a cloud in the background.">
     </header>
 
