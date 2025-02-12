@@ -1,57 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const blogGrid = document.getElementById('blogGrid');
-    
-    loadPosts();
+    const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
 
-    function loadPosts() {
-        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+    const renderPosts = () => {
+        const blogGrid = document.getElementById('blogGrid');
+        if (!blogGrid) return;
 
-        if (posts.length === 0) {
-            blogGrid.innerHTML = '<p>No posts available. Create one!</p>';
-        }
+        const posts = getPosts();
+        blogGrid.innerHTML = posts.length
+            ? posts.map(post => `
+                <div class="post" data-id="${post.id}">
+                    <h2>${post.title}</h2>
+                    <img src="${post.image}" alt="Post Image" style="max-width: 200px;">
+                    <p>${post.content}</p>
+                    <button onclick="editPost('${post.id}')">Edit</button>
+                    <button onclick="deletePost('${post.id}')">Delete</button>
+                </div>
+            `).join('')
+            : "<p>No posts found.</p>";
+    };
 
-        posts.forEach(post => {
-            displayPost(post);
-        });
-    }
+    window.editPost = id => {
+        window.location.href = `blog-create-post-page.html?id=${id}`;
+    };
 
-    function displayPost(post) {
-        const postElement = document.createElement('div');
-        postElement.classList.add('post');
-        postElement.dataset.id = post.id;
+    window.deletePost = id => {
+        const posts = getPosts();
+        const updatedPosts = posts.filter(post => post.id !== id);
+        localStorage.setItem('posts', JSON.stringify(updatedPosts));
+        alert("Post deleted successfully!");
+        renderPosts();
+    };
 
-        postElement.innerHTML = `
-            <h2>${post.title}</h2>
-            <img src="${post.image}" alt="Blog image">
-            <p>${post.content}</p>
-            <button class="edit-btn">Edit</button>
-            <button class="delete-btn">Delete</button>
-        `;
-
-        const editBtn = postElement.querySelector('.edit-btn');
-        editBtn.addEventListener('click', () => {
-            editPost(post.id);
-        });
-
-        const deleteBtn = postElement.querySelector('.delete-btn');
-        deleteBtn.addEventListener('click', () => {
-            deletePost(post.id);
-            postElement.remove();
-        });
-
-        blogGrid.appendChild(postElement);
-    }
-
-    function editPost(postId) {
-        const posts = JSON.parse(localStorage.getItem('posts')) || [];
-        const post = posts.find(post => post.id === postId);
-
-        window.location.href = `blog-create-post-page.html?edit=${postId}`;
-    }
-
-    function deletePost(postId) {
-        let posts = JSON.parse(localStorage.getItem('posts')) || [];
-        posts = posts.filter(post => post.id !== postId);
-        localStorage.setItem('posts', JSON.stringify(posts));
-    }
+    renderPosts();
 });

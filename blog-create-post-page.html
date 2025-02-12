@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/7d33f7d3ef.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/blog-create-post-page.css">
+    <link rel="stylesheet" href="css/basic-styling.css">
     <title>HotView Labs Blog Create Post Page</title>
 </head>
 
@@ -42,12 +53,11 @@
             <textarea id="blogContent" rows="5" required></textarea>
             <i class="fa-regular fa-square-check"></i>
             <label for="blogImage">Blog image:</label>
-            <input type="text" id="blogImage">
+            <input type="file" id="blogImage" accept="image/*">
+            <img id="previewImage" src="" alt="Image preview">
             <i class="fa-regular fa-square-check"></i>
         </div>
         <button class="confirm-btn" id="confirmBtn" type="submit">Confirm edits</button>
-        <div class="blog-posts-container" id="blogPostsContainer"></div>
-        <div id="blogGrid"></div>
     </main>
 
     <footer>
@@ -67,5 +77,6 @@
     <script src="api.js" defer></script>
     <script src="auth.js" defer></script>
     <script src="create.js" defer></script>
+    <script src="edit.js" defer></script>
 </body>
 </html>
