@@ -5,8 +5,31 @@ const prevBtn = document.getElementById('slideBtnPrev');
 const nextBtn = document.getElementById('slideBtnNext');
 
 if (nextBtn && prevBtn && carouselContainer) {
-    nextBtn.addEventListener('click', () => carouselContainer.scrollLeft += SLIDE_WIDTH);
-    prevBtn.addEventListener('click', () => carouselContainer.scrollLeft -= SLIDE_WIDTH);
+    nextBtn.addEventListener('click', () => {
+        showLoadingSpinner();
+        setTimeout(() => {
+            carouselContainer.scrollLeft += SLIDE_WIDTH;
+            hideLoadingSpinner();
+        }, 500);
+    });
+
+    prevBtn.addEventListener('click', () => {
+        showLoadingSpinner();
+        setTimeout(() => {
+            carouselContainer.scrollLeft -= SLIDE_WIDTH;
+            hideLoadingSpinner();
+        }, 500);
+    });
+}
+
+function showLoadingSpinner() {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    if (loadingSpinner) loadingSpinner.style.display = 'block';
+}
+
+function hideLoadingSpinner() {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    if (loadingSpinner) loadingSpinner.style.display = 'none';
 }
 
 const hamburgerIcon = document.getElementById('hamburgerIcon');
@@ -27,19 +50,32 @@ function toggleMenu() {
 
 function handleHamburgerClick(event) {
     event.stopPropagation();
-    if (hambMenuLoggedOut.style.display === 'block' || hambMenuLoggedIn.style.display === 'block') {
-        hambMenuLoggedOut.style.display = 'none';
-        hambMenuLoggedIn.style.display = 'none';
-    } else {
-        toggleMenu();
-    }
+    showLoadingSpinner();
+
+    setTimeout(() => {
+        if (hambMenuLoggedOut.style.display === 'block' || hambMenuLoggedIn.style.display === 'block') {
+            hambMenuLoggedOut.style.display = 'none';
+            hambMenuLoggedIn.style.display = 'none';
+        } else {
+            toggleMenu();
+        }
+
+        hideLoadingSpinner();
+    }, 500);
 }
 
 function signOut() {
-    localStorage.removeItem('jwt');
-    hambMenuLoggedOut.style.display = 'block';
-    hambMenuLoggedIn.style.display = 'none';
-    alert("You are now signed out.");
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    if (loadingSpinner) loadingSpinner.style.display = 'block';
+
+    setTimeout(() => {
+        localStorage.removeItem('jwt');
+        hambMenuLoggedOut.style.display = 'block';
+        hambMenuLoggedIn.style.display = 'none';
+        alert("You are now signed out.");
+        
+        if (loadingSpinner) loadingSpinner.style.display = 'none';
+    }, 500);
 }
 
 if (hamburgerIcon) {
@@ -49,3 +85,16 @@ if (hamburgerIcon) {
 if (signOutButton) {
     signOutButton.addEventListener('click', signOut);
 }
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    if (loadingSpinner) loadingSpinner.style.display = 'block';
+
+    try {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+    } catch (error) {
+        console.error('Error during loading:', error);
+    } finally {
+        if (loadingSpinner) loadingSpinner.style.display = 'none';
+    }
+});
