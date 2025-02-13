@@ -57,3 +57,11 @@
     font-weight: 500;
     margin: 2em 0;
 }
+
+.sortingBtn {
+    transition: transform 0.3s;
+}
+
+.sortingBtn.flipped i {
+    transform: rotate(180deg);
+}

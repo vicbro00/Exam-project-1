@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const blogTitle = document.getElementById('blogTitle');
     const blogContent = document.getElementById('blogContent');
     const blogImage = document.getElementById('blogImage');
+    const publishDate = document.getElementById('publishDate');
     const previewImage = document.getElementById('previewImage');
     const confirmBtn = document.getElementById('confirmBtn');
 
@@ -31,9 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         confirmBtn.addEventListener("click", () => {
             const title = blogTitle.value;
             const content = blogContent.value;
+            const publishDateValue = publishDate.value;
             const imageFile = blogImage ? blogImage.files[0] : null;
 
-            if (!title || !content || !imageFile) {
+            if (!title || !content || !publishDateValue || !imageFile) {
                 alert("Please fill in all fields and select an image.");
                 return;
             }
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const imageBase64 = e.target.result;
-                const newPost = { id: generateId(), title, content, image: imageBase64 };
+                const newPost = { id: generateId(), title, content, image: imageBase64, publishDate: publishDateValue };
                 const posts = getPosts();
                 posts.push(newPost);
                 savePosts(posts);
