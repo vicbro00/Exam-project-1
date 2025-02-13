@@ -1,5 +1,6 @@
 const apiKey = 'f160e946-a508-4a3a-8cff-9be4336ee4ec';
 const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVmljQiIsImVtYWlsIjoidmljYnJvMDI0NThAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3MzkzODM0MjJ9.wx64An-JmnLU_HeQjjuSz1O2ey04DCpKGnHUhpXTTmQ';
+const newURL = 'https://v2.api.noroff.dev/blog/posts/v';
 
 const options = {
   method: 'GET',
