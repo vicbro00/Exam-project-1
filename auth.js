@@ -35,12 +35,12 @@ function login() {
                 const response = JSON.parse(this.responseText);
                 if (response.data && response.data.accessToken) {
                     localStorage.setItem("jwt", response.data.accessToken);
-                    localStorage.setItem("email", email); // Store the email in localStorage
-                    console.log("User is now signed in."); // Log sign-in status
+                    localStorage.setItem("email", email);
+                    console.log("User is now signed in.");
                     alert("You are now signed in!");
                     window.location.href = "./index.html";
                 } else {
-                    console.log("Login failed. User is not signed in."); // Log failed login
+                    console.log("Login failed. User is not signed in.");
                     alert(response.message || "Login failed. Please check your credentials.");
                 }
             } catch (error) {
