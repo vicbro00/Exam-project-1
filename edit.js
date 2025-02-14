@@ -56,3 +56,17 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "index.html";
     };
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const email = localStorage.getItem('email'); // Retrieve the email from localStorage
+
+    if (email) {
+        const signedInText = document.querySelector('main h1');
+        if (signedInText) {
+            signedInText.textContent = `Signed in as: ${email}`; // Update the text
+        }
+    } else {
+        console.log('No user email found in localStorage.');
+        window.location.href = 'account-login-page.html'; // Redirect to login page if no email is found
+    }
+});

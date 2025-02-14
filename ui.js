@@ -70,13 +70,18 @@ function signOut() {
 
     setTimeout(() => {
         localStorage.removeItem('jwt');
+        localStorage.removeItem('email');
         hambMenuLoggedOut.style.display = 'block';
         hambMenuLoggedIn.style.display = 'none';
+
         alert("You are now signed out.");
         
         if (loadingSpinner) loadingSpinner.style.display = 'none';
+
+        window.location.href = 'index.html';  
     }, 500);
 }
+
 
 if (hamburgerIcon) {
     hamburgerIcon.addEventListener('click', handleHamburgerClick);

@@ -1,18 +1,20 @@
 const jwt = localStorage.getItem('jwt');
+const userEmail = localStorage.getItem('email');
 
-if (jwt) {
-    console.log("User is signed in.");
-} else {
-    console.log("User is not signed in.");
+if (window.location.pathname.includes("post-edit.html")) {
+    if (jwt) {
+        console.log("User is signed in.");
+        document.getElementById("email").textContent = `Signed in as: ${userEmail}`;
+        hambMenuLoggedOut.style.display = 'none';
+        hambMenuLoggedIn.style.display = 'block';
+    } else {
+        console.log("User is not signed in.");
+        document.getElementById("email").textContent = "Not signed in";
+        hambMenuLoggedOut.style.display = 'block';
+        hambMenuLoggedIn.style.display = 'none';
+    }
 }
 
-if (jwt) {
-    hambMenuLoggedOut.style.display = 'none';
-    hambMenuLoggedIn.style.display = 'block';
-} else {
-    hambMenuLoggedOut.style.display = 'block';
-    hambMenuLoggedIn.style.display = 'none';
-}
 
 function login() {
     const email = document.getElementById("email").value;
@@ -33,6 +35,7 @@ function login() {
                 const response = JSON.parse(this.responseText);
                 if (response.data && response.data.accessToken) {
                     localStorage.setItem("jwt", response.data.accessToken);
+                    localStorage.setItem("email", email); // Store the email in localStorage
                     console.log("User is now signed in."); // Log sign-in status
                     alert("You are now signed in!");
                     window.location.href = "./index.html";

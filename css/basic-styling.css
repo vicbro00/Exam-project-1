@@ -73,7 +73,8 @@ header .hamb-menu-logged-out {
 }
 
 .hamb-menu-logged-in a,
-.hamb-menu-logged-out a {
+.hamb-menu-logged-out a,
+.hamb-menu-logged-out li{
     text-decoration: none;
     color: white;
 }

@@ -84,6 +84,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+function sortPosts(posts) {
+    return posts.sort((a, b) => {
+        const dateA = new Date(a.publishDate);
+        const dateB = new Date(b.publishDate);
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
+}
+
 async function fetchBlogPosts() {
     try {
         const response = await fetch(newURL, {
@@ -100,7 +108,6 @@ async function fetchBlogPosts() {
         const data = await response.json();
         console.log('Blog posts:', data);
 
-        // Apply sorting before displaying
         const sortedPosts = sortPosts(data.data);
         displayBlogPosts(sortedPosts);
     } catch (error) {
