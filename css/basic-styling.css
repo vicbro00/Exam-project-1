@@ -1,9 +1,10 @@
 html {
     font-family: 'roboto slab', 'quicksand', 'work sans';
+    margin: 0 6em;
 }
 
 body {
-    padding-top: 6%;
+    padding-top: 6em;
 }
 
 h1 {
