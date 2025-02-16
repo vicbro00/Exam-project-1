@@ -1,8 +1,38 @@
 const SLIDE_WIDTH = document.querySelector('.slide')?.clientWidth + 10 || 0;
-
 const carouselContainer = document.getElementById('carouselContainer');
 const prevBtn = document.getElementById('slideBtnPrev');
 const nextBtn = document.getElementById('slideBtnNext');
+const dots = document.querySelectorAll('.carousel-dots li');
+
+let currentIndex = 0;
+
+function updateActiveDot() {
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active-dot', index === currentIndex);
+    });
+}
+
+if (nextBtn && prevBtn && carouselContainer) {
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < dots.length - 1) {
+            currentIndex++;
+            carouselContainer.scrollLeft += SLIDE_WIDTH;
+            updateActiveDot();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            carouselContainer.scrollLeft -= SLIDE_WIDTH;
+            updateActiveDot();
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateActiveDot();
+});
 
 if (nextBtn && prevBtn && carouselContainer) {
     nextBtn.addEventListener('click', () => {
