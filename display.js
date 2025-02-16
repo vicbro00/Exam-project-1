@@ -1,32 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
     const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
 
+    let sortOrder = 'newest';
+
     const renderPosts = () => {
         const blogGrid = document.getElementById('blogGrid');
         if (!blogGrid) return;
 
+        showSpinner();
+
         const posts = getPosts();
-        blogGrid.innerHTML = posts.length
-            ? posts.map(post => `
-                <div class="post" data-id="${post.id}">
-                    <h3>${post.title}</h3>
-                    <img src="${post.image}" alt="Post Image">
-                    ${isIndexPage() 
-                        ? ''
-                        : `<p>${isEditPage() ? truncateContent(post.content) : post.content}</p>`
-                    }
-                    ${isEditPage() 
-                        ? `
-                            <button onclick="editPost('${post.id}')">Edit</button>
-                            <button onclick="deletePost('${post.id}')">Delete</button>
-                        `
-                        : isPostPage() 
+        const sortedPosts = sortPosts(posts);
+
+        setTimeout(() => {
+            blogGrid.innerHTML = sortedPosts.length
+                ? sortedPosts.map(post => `
+                    <div class="post" data-id="${post.id}">
+                        <h3>${post.title}</h3>
+                        <img src="${post.image}" alt="Post Image">
+                        ${isIndexPage()
                             ? ''
-                            : `<button onclick="viewPost('${post.id}')">Read More</button>`
-                    }
-                </div>
-            `).join('')
-            : "<p>No posts found.</p>";
+                            : `<p>${isEditPage() ? truncateContent(post.content) : post.content}</p>`
+                        }
+                        ${isEditPage()
+                            ? `
+                                <button onclick="editPost('${post.id}')">Edit</button>
+                                <button onclick="deletePost('${post.id}')">Delete</button>
+                            `
+                            : isPostPage()
+                                ? ''
+                                : `<button onclick="viewPost('${post.id}')">Read More</button>`
+                        }
+                    </div>
+                `).join('')
+                : "<p>No posts found.</p>";
+
+            hideSpinner();
+        }, 500);
+    };
+
+    const showSpinner = () => {
+        const spinner = document.getElementById('loadingSpinner');
+        if (spinner) {
+            spinner.style.display = 'block';
+        }
+    };
+
+    const hideSpinner = () => {
+        const spinner = document.getElementById('loadingSpinner');
+        if (spinner) {
+            spinner.style.display = 'none';
+        }
     };
 
     const isPostPage = () => window.location.pathname.includes('post.html');
@@ -77,73 +101,28 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    const sortPosts = (posts) => {
+        return posts.sort((a, b) => {
+            const dateA = new Date(a.publishDate);
+            const dateB = new Date(b.publishDate);
+            return sortOrder === 'newest' ? dateA - dateB : dateB - dateA;
+        });
+    };
+
+    const sortingBtn = document.getElementById('sortingBtn');
+    if (sortingBtn) {
+        sortingBtn.addEventListener('click', () => {
+            sortOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
+            renderPosts();
+            console.log('Sort order:', sortOrder);
+        });
+    } else {
+        console.error('Sorting button not found.');
+    }
+
     if (window.location.pathname.includes('post.html')) {
         renderSinglePost('postContainer');
     } else {
         renderPosts();
     }
 });
-
-function sortPosts(posts) {
-    return posts.sort((a, b) => {
-        const dateA = new Date(a.publishDate);
-        const dateB = new Date(b.publishDate);
-        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    });
-}
-
-async function fetchBlogPosts() {
-    try {
-        const response = await fetch(newURL, {
-            method: 'GET',
-            headers: {
-                'accept': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Blog posts:', data);
-
-        const sortedPosts = sortPosts(data.data);
-        displayBlogPosts(sortedPosts);
-    } catch (error) {
-        console.error('Error fetching blog posts:', error);
-    }
-}
-
-function displayBlogPosts(posts) {
-    const blogPostsContainer = document.getElementById('blogPostsContainer');
-    if (!blogPostsContainer) return;
-
-    const sortedPosts = sortPosts(posts);
-
-    blogPostsContainer.innerHTML = '';
-
-    sortedPosts.forEach(post => {
-        const postElement = document.createElement('div');
-        postElement.classList.add('blog-post');
-
-        const titleElement = document.createElement('h2');
-        titleElement.textContent = post.title;
-        postElement.appendChild(titleElement);
-
-        const bodyElement = document.createElement('p');
-        bodyElement.textContent = post.body;
-        postElement.appendChild(bodyElement);
-
-        if (post.media && post.media.url) {
-            const mediaElement = document.createElement('img');
-            mediaElement.src = post.media.url;
-            mediaElement.alt = post.media.alt || 'Blog post image';
-            postElement.appendChild(mediaElement);
-        }
-
-        blogPostsContainer.appendChild(postElement);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', fetchBlogPosts);
