@@ -16,9 +16,75 @@ function toggleSortOrder() {
     }, 500);
 }
 
-
 document.getElementById('sortingBtn').addEventListener('click', () => {
     const sortButton = document.getElementById('sortingBtn');
     sortButton.classList.toggle('flipped');
     toggleSortOrder();
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
+
+    const renderCarousel = () => {
+        const carouselContainer = document.getElementById('carouselContainer');
+        if (!carouselContainer) return;
+
+        const posts = getPosts();
+        const sortedPosts = posts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+        const latestPosts = sortedPosts.slice(0, 3);
+
+        if (latestPosts.length > 0) {
+            carouselContainer.innerHTML = latestPosts.map(post => `
+                <li class="slide">
+                    <h3>${post.title}</h3>
+                    <img src="${post.image}" alt="${post.title}">
+                    <p>${truncateContent(post.content, 20)}</p>
+                    <button onclick="viewPost('${post.id}')">Read More</button>
+                </li>
+            `).join('');
+        } else {
+            carouselContainer.innerHTML = "<li>No posts found.</li>";
+        }
+    };
+
+    const truncateContent = (content, maxWords = 10) => {
+        const words = content.split(' ');
+        if (words.length > maxWords) {
+            return words.slice(0, maxWords).join(' ') + '...';
+        }
+        return content;
+    };
+
+    window.viewPost = id => {
+        localStorage.setItem('selectedPostId', id);
+        window.location.href = 'post.html';
+    };
+
+    if (window.location.pathname.includes('index.html')) {
+        renderCarousel();
+    }
+});
+
+let currentSlide = 0;
+
+const showSlide = (index) => {
+    const slides = document.querySelectorAll('.slide');
+    if (index >= slides.length) currentSlide = 0;
+    if (index < 0) currentSlide = slides.length - 1;
+
+    slides.forEach((slide, i) => {
+        slide.style.display = i === currentSlide ? 'block' : 'none';
+    });
+};
+
+document.getElementById('slideBtnPrev').addEventListener('click', () => {
+    currentSlide--;
+    showSlide(currentSlide);
+});
+
+document.getElementById('slideBtnNext').addEventListener('click', () => {
+    currentSlide++;
+    showSlide(currentSlide);
+});
+
+showSlide(currentSlide);

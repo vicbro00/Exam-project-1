@@ -91,6 +91,18 @@ if (signOutButton) {
     signOutButton.addEventListener('click', signOut);
 }
 
+document.addEventListener('click', (event) => {
+    const isClickInsideMenu = hambMenuLoggedOut.contains(event.target) || hambMenuLoggedIn.contains(event.target) || hamburgerIcon.contains(event.target);
+    if (!isClickInsideMenu) {
+        showLoadingSpinner();
+        setTimeout(() => {
+            hambMenuLoggedOut.style.display = 'none';
+            hambMenuLoggedIn.style.display = 'none';
+            hideLoadingSpinner();
+        }, 500);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', async () => {
     const loadingSpinner = document.getElementById('loadingSpinner');
     if (loadingSpinner) loadingSpinner.style.display = 'block';
