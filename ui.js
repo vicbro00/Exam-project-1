@@ -93,7 +93,9 @@ if (signOutButton) {
 
 document.addEventListener('click', (event) => {
     const isClickInsideMenu = hambMenuLoggedOut.contains(event.target) || hambMenuLoggedIn.contains(event.target) || hamburgerIcon.contains(event.target);
-    if (!isClickInsideMenu) {
+    const isMenuOpen = hambMenuLoggedOut.style.display === 'block' || hambMenuLoggedIn.style.display === 'block';
+
+    if (!isClickInsideMenu && isMenuOpen) {
         showLoadingSpinner();
         setTimeout(() => {
             hambMenuLoggedOut.style.display = 'none';

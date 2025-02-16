@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
 
     let sortOrder = 'newest';
+    let searchTerm = '';
 
     const renderPosts = () => {
         const blogGrid = document.getElementById('blogGrid');
@@ -10,7 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
         showSpinner();
 
         const posts = getPosts();
-        const sortedPosts = sortPosts(posts);
+        const filteredPosts = posts.filter(post =>
+            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.content.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        const sortedPosts = sortPosts(filteredPosts);
 
         setTimeout(() => {
             blogGrid.innerHTML = sortedPosts.length
@@ -118,6 +123,26 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } else {
         console.error('Sorting button not found.');
+    }
+
+    const searchInput = document.getElementById('search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (event) => {
+            searchTerm = event.target.value;
+            renderPosts();
+        });
+
+        searchInput.addEventListener('focus', () => {
+            if (searchInput.value === 'Search...') {
+                searchInput.value = '';
+            }
+        });
+
+        searchInput.addEventListener('blur', () => {
+            if (searchInput.value === '') {
+                searchInput.value = 'Search...';
+            }
+        });
     }
 
     if (window.location.pathname.includes('post.html')) {
