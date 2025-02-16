@@ -1,4 +1,5 @@
 const jwt = localStorage.getItem('jwt');
+const userEmailDisplay = document.getElementById("userEmailDisplay");
 const userEmail = localStorage.getItem('email');
 
 if (window.location.pathname.includes("post-edit.html")) {
@@ -12,6 +13,14 @@ if (window.location.pathname.includes("post-edit.html")) {
         document.getElementById("email").textContent = "Not signed in";
         hambMenuLoggedOut.style.display = 'block';
         hambMenuLoggedIn.style.display = 'none';
+    }
+}
+
+if (userEmailDisplay) {
+    if (jwt && userEmail) {
+        userEmailDisplay.textContent = userEmail;
+    } else {
+        userEmailDisplay.textContent = "Not signed in";
     }
 }
 

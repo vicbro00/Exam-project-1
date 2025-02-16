@@ -114,35 +114,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    const sortingBtn = document.getElementById('sortingBtn');
-    if (sortingBtn) {
-        sortingBtn.addEventListener('click', () => {
-            sortOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
-            renderPosts();
-            console.log('Sort order:', sortOrder);
-        });
+    if (isIndexPage()) {
+        const sortingBtn = document.getElementById('sortingBtn');
+        if (sortingBtn) {
+            sortingBtn.addEventListener('click', () => {
+                sortOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
+                renderPosts();
+                console.log('Sort order:', sortOrder);
+            });
+        } else {
+            console.error('Sorting button not found.');
+        }
     } else {
-        console.error('Sorting button not found.');
-    }
-
-    const searchInput = document.getElementById('search');
-    if (searchInput) {
-        searchInput.addEventListener('input', (event) => {
-            searchTerm = event.target.value;
-            renderPosts();
-        });
-
-        searchInput.addEventListener('focus', () => {
-            if (searchInput.value === 'Search...') {
-                searchInput.value = '';
-            }
-        });
-
-        searchInput.addEventListener('blur', () => {
-            if (searchInput.value === '') {
-                searchInput.value = 'Search...';
-            }
-        });
+        const sortingBtn = document.getElementById('sortingBtn');
+        if (sortingBtn) {
+            sortingBtn.style.display = 'none';
+        }
     }
 
     if (window.location.pathname.includes('post.html')) {
