@@ -45,14 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="post" data-id="${post.id}">
                         <h3>${post.title}</h3>
                         <img src="${post.image}" alt="Post Image">
-                        ${isIndexPage()
-                            ? ''
-                            : `<p>${isEditPage() ? truncateContent(post.content) : post.content}</p>`
+                        ${isIndexPage() || isPostPage()
+                            ? `<p>${isEditPage() ? truncateContent(post.content) : post.content}</p>`
+                            : ''
                         }
                         ${isEditPage()
                             ? `
                                 <button onclick="editPost('${post.id}')">Edit</button>
-                                <button onclick="deletePost('${post.id}')">Delete</button>
+                                <button id="deleteBtn" onclick="deletePost('${post.id}')">Delete</button>
                             `
                             : isPostPage()
                                 ? ''
@@ -64,6 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             hideSpinner();
         }, 500);
+    };
+
+    window.editPost = (id) => {
+        window.location.href = `blog-create-post-page.html?id=${id}`;
     };
 
     const showSpinner = () => {
@@ -82,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isPostPage = () => window.location.pathname.includes('post.html');
     const isIndexPage = () => window.location.pathname.includes('index.html');
-    const isEditPage = () => window.location.pathname.includes('edit.html');
+    const isEditPage = () => window.location.pathname.includes('post-edit.html');
 
     const truncateContent = (content, maxWords = 10) => {
         const words = content.split(' ');
@@ -118,10 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (selectedPost) {
             container.innerHTML = `
+            <div class="blog-grid">
                 <h3>${selectedPost.title}</h3>
                 <img src="${selectedPost.image}" alt="Post Image">
                 <p>${selectedPost.content}</p>
                 <p class="publish-date">Published on: ${new Date(selectedPost.publishDate).toLocaleDateString()}</p>
+            </div>
             `;
         } else {
             container.innerHTML = "<p>Post not found.</p>";
@@ -143,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 sortOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
                 renderPosts();
                 console.log('Sort order:', sortOrder);
-            });
+            }); 
         } else {
             console.error('Sorting button not found.');
         }
