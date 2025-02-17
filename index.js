@@ -11,7 +11,6 @@ function toggleSortOrder() {
     sortButton.innerHTML += ' <i class="fa-solid fa-arrow-down"></i>';
 
     setTimeout(async () => {
-        await fetchBlogPosts();
         if (loadingSpinner) loadingSpinner.style.display = 'none';
     }, 500);
 }
@@ -38,21 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 <li class="slide">
                     <h3>${post.title}</h3>
                     <img src="${post.image}" alt="${post.title}">
-                    <p>${truncateContent(post.content, 20)}</p>
                     <button onclick="viewPost('${post.id}')">Read More</button>
                 </li>
             `).join('');
         } else {
             carouselContainer.innerHTML = "<li>No posts found.</li>";
         }
-    };
-
-    const truncateContent = (content, maxWords = 10) => {
-        const words = content.split(' ');
-        if (words.length > maxWords) {
-            return words.slice(0, maxWords).join(' ') + '...';
-        }
-        return content;
     };
 
     window.viewPost = id => {
@@ -73,7 +63,7 @@ const showSlide = (index) => {
     if (index < 0) currentSlide = slides.length - 1;
 
     slides.forEach((slide, i) => {
-        slide.style.display = i === currentSlide ? 'block' : 'none';
+        slide.style.display = i === currentSlide ? 'flex' : 'none';
     });
 };
 

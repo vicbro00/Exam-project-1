@@ -1,6 +1,6 @@
 html {
     font-family: 'roboto slab', 'quicksand', 'work sans';
-    margin: 0 6em;
+    background-color: rgb(227, 254, 247);
 }
 
 body {
@@ -17,6 +17,10 @@ h2 {
     text-align: center;
     max-width: 80%;
     margin: auto;
+}
+
+h3 {
+    text-align: center;
 }
 
 p {
@@ -52,8 +56,8 @@ header i {
 }
 
 header img {
-    max-width: 2em;
-    max-height: 2em;
+    max-width: 4em;
+    max-height: 4em;
 }
 
 header h1 {
@@ -104,14 +108,24 @@ button:hover {
     cursor: pointer;
 }
 
+#searchInput {
+    padding: 0.25em 1em;
+    border: none;
+    border-radius: 25px;
+}
+
+#searchInput:hover {
+    cursor: pointer;
+}
+
 /*Footer styling*/
 footer {
     background-color: rgb(119, 176, 170);
 }
 
 footer img {
-    max-width: 2em;
-    max-height: 2em;
+    max-width: 4em;
+    max-height: 4em;
 }
 
 .footer-bar {

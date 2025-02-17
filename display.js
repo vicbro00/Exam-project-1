@@ -4,6 +4,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let sortOrder = 'newest';
     let searchTerm = '';
 
+    const handleSearchInput = () => {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.addEventListener('focus', () => {
+                if (searchInput.value === '') {
+                    searchInput.placeholder = '';
+                }
+            });
+
+            searchInput.addEventListener('blur', () => {
+                if (searchInput.value === '') {
+                    searchInput.placeholder = 'Search...';
+                }
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                renderPosts();
+            });
+        }
+    };
+
     const renderPosts = () => {
         const blogGrid = document.getElementById('blogGrid');
         if (!blogGrid) return;
@@ -125,6 +147,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             console.error('Sorting button not found.');
         }
+
+        handleSearchInput();
     } else {
         const sortingBtn = document.getElementById('sortingBtn');
         if (sortingBtn) {

@@ -78,6 +78,11 @@ function toggleMenu() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    hambMenuLoggedOut.style.display = 'none';
+    hambMenuLoggedIn.style.display = 'none';
+});
+
 function handleHamburgerClick(event) {
     event.stopPropagation();
     showLoadingSpinner();

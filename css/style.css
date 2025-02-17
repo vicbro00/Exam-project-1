@@ -29,9 +29,7 @@
 
 /*Carousel styling*/
 .carousel-container {
-    width: 100%;
     display: flex;
-    list-style: none;
     margin: 0;
     padding: 0;
     overflow: scroll;
@@ -48,18 +46,17 @@
     background-attachment: white;
     border: solid rgb(2, 59, 44);
     border-width: 2px;
-    margin-right: 10px;
     box-sizing: border-box;
-    align-items: center;
-    text-align: center;
     padding: 4em 2em;
     font-family: 'quicksand', 'verdana';
     font-weight: 500;
-    margin: 2em 0;
-}
-
-.sortingBtn {
-    transition: transform 0.3s;
+    margin: 1em 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    text-align: center;
+    flex-direction: column;
 }
 
 .sortingBtn.flipped i {
@@ -71,11 +68,52 @@
     width: 0.5em;
     height: 0.5em;
     border-radius: 50%;
-    margin: 0 1em;
     background-color: grey;
-    transition: background-colour 0.3s;
+    margin: 1em;
+}
+
+#carouselDots {
+    margin: 0;
+    padding: 0;
 }
 
 .carousel-dots .active-dot {
     background-color: black;
+}
+
+.slide img {
+    max-width: 8em;
+    display: block;
+}
+
+.slide button {
+    display: block;
+}
+
+.slide-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*Blog grid styling*/
+.post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    margin: 2em 0;
+    background-color: white;
+    padding: 2em 0;
+    width: 80%;
+}
+
+.post img {
+    max-width: 8em;
+}
+
+#blogGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
