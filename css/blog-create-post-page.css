@@ -1,0 +1,34 @@
+h1 {
+    font-size: 1.5em;
+    font-weight: 500;
+    text-align: center;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.edit-form input, 
+textarea {
+    border-color: rgb(2, 59, 44);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 25px;
+}
+
+label {
+    font-family: 'quicksand';
+}
+
+#confirmBtn {
+    display: flex;
+    margin: 2em auto
+}
+
+img {
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+}
