@@ -1,9 +1,13 @@
+//Wait for dom to load before running scripts
 document.addEventListener("DOMContentLoaded", () => {
+    //Get posts from local storage
     const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
 
+    //Variables for sorting and searching inputs
     let sortOrder = 'newest';
     let searchTerm = '';
 
+    //Handles search input events
     const handleSearchInput = () => {
         const searchInput = document.getElementById('searchInput');
         if (searchInput) {
@@ -26,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    //Shows blogs on page
     const renderPosts = () => {
         const blogGrid = document.getElementById('blogGrid');
         if (!blogGrid) return;
@@ -46,8 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <h3>${post.title}</h3>
                         <img src="${post.image}" alt="Post Image">
                         ${isIndexPage() || isPostPage()
-                            ? `<p>${isEditPage() ? truncateContent(post.content) : post.content}</p>`
-                            : ''
+                            ? `<p>${isEditPage() ? truncateContent(post.content) : post.content}</p>`: ''
                         }
                         ${isEditPage()
                             ? `
@@ -55,21 +59,21 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <button id="deleteBtn" onclick="deletePost('${post.id}')">Delete</button>
                             `
                             : isPostPage()
-                                ? ''
-                                : `<button onclick="viewPost('${post.id}')">Read More</button>`
+                                ? '': `<button onclick="viewPost('${post.id}')">Read More</button>`
                         }
                     </div>
-                `).join('')
-                : "<p>No posts found.</p>";
+                `).join(''): "<p>No posts found.</p>";
 
             hideSpinner();
         }, 500);
     };
 
+    //Navigates to the edit post page
     window.editPost = (id) => {
         window.location.href = `blog-create-post-page.html?id=${id}`;
     };
 
+    //Shows loading spinner for async actions
     const showSpinner = () => {
         const spinner = document.getElementById('loadingSpinner');
         if (spinner) {
@@ -77,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    //Hides the spinner after a while
     const hideSpinner = () => {
         const spinner = document.getElementById('loadingSpinner');
         if (spinner) {
@@ -84,10 +89,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    //Function to check if current pages are one of these
     const isPostPage = () => window.location.pathname.includes('post.html');
     const isIndexPage = () => window.location.pathname.includes('index.html');
     const isEditPage = () => window.location.pathname.includes('post-edit.html');
 
+    //Function to minimize content text to maximum of 10 words
     const truncateContent = (content, maxWords = 10) => {
         const words = content.split(' ');
         if (words.length > maxWords) {
@@ -96,11 +103,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return content;
     };
 
+    //Function to navigate to the post page to view a single post
     window.viewPost = id => {
         localStorage.setItem('selectedPostId', id);
         window.location.href = 'post.html';
     };
 
+
+    //Function to delete a post
     window.deletePost = id => {
         const isConfirmed = confirm("Are you sure you want to delete this post? This action cannot be undone.");
         if (isConfirmed) {
@@ -112,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    //Function to show a single post
     const renderSinglePost = (containerId) => {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -127,13 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img src="${selectedPost.image}" alt="Post Image">
                 <p>${selectedPost.content}</p>
                 <p class="publish-date">Published on: ${new Date(selectedPost.publishDate).toLocaleDateString()}</p>
-            </div>
-            `;
+            </div>`;
         } else {
             container.innerHTML = "<p>Post not found.</p>";
         }
     };
 
+    //Sorts posts based on publish date
     const sortPosts = (posts) => {
         return posts.sort((a, b) => {
             const dateA = new Date(a.publishDate);
@@ -142,6 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    //Checks if the elements are on the current page
     if (isIndexPage()) {
         const sortingBtn = document.getElementById('sortingBtn');
         if (sortingBtn) {
