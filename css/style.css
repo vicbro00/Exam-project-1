@@ -118,3 +118,34 @@
     flex-direction: column;
     align-items: center;
 }
+
+/*Desktop styling*/
+@media (min-width: 768px) {
+    .slide img {
+        min-width: 12em;
+    }
+
+    .slide {
+        padding: 0;
+    }
+
+    .slide button {
+        margin-bottom: 1em;
+    }
+
+    #blogGrid {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+
+    .post {
+        width: 100%;
+    }
+
+    .post p {
+        display: none;
+    }
+}
