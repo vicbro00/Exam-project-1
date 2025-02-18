@@ -48,7 +48,7 @@
 
     <main>
         <h1>Signed in as: <span id="userEmailDisplay"></span></h1>
-        <div class="edit-form" id="createPostForm">
+        <form class="edit-form" id="createPostForm">
             <label for="blogTitle">Blog title:</label>
             <input type="text" id="blogTitle">
             <label for="blogContent">Blog content:</label>
@@ -56,9 +56,9 @@
             <label for="publishDate">Publish Date:</label>
             <input type="date" id="publishDate" required>
             <label for="blogImage">Blog image:</label>
-            <input type="file" id="blogImage" accept="image/*">
+            <input type="url" id="blogImage" placeholder="Enter image URL">
             <img id="previewImage" src="" alt="Image preview">
-        </div>
+        </form>
         <button class="confirm-btn" id="confirmBtn" type="submit">Confirm edits</button>
     </main>
 

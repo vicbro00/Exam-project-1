@@ -1,125 +1,114 @@
-//Wait for dom to load before running scripts
-document.addEventListener("DOMContentLoaded", () => {
-    //Function to generate ID
-    const generateId = () => Date.now().toString(36) + Math.random().toString(36).substr(2);
+// Function to create a new blog post using the API
+async function createPost(title, body, publishDate, mediaUrl = "") {
+    const username = localStorage.getItem("email");
+    const token = localStorage.getItem("jwt");
 
-    //Function to save post to local storage
-    const savePosts = (posts) => localStorage.setItem('posts', JSON.stringify(posts));
+    const url = `https://v2.api.noroff.dev/blog/posts/VicB`;
 
-    //Function to retrieve post from local storage
-    const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
+    console.log("Username (email):", username); // Debugging
+    console.log("Token:", token); // Debugging
 
-    //Create post form element
-    const createPostForm = document.getElementById('createPostForm');
-    if (!createPostForm) return;
-
-    //Form input elements
-    const blogTitle = document.getElementById('blogTitle');
-    const blogContent = document.getElementById('blogContent');
-    const blogImage = document.getElementById('blogImage');
-    const publishDate = document.getElementById('publishDate');
-    const previewImage = document.getElementById('previewImage');
-    const confirmBtn = document.getElementById('confirmBtn');
-
-    //Post ID
-    const urlParams = new URLSearchParams(window.location.search);
-    const postId = urlParams.get('id');
-    let originalPost = null;
-
-    //If post ID is present, find the post in local storage
-    if (postId) {
-        const posts = getPosts();
-        originalPost = posts.find(post => post.id === postId);
-
-        //Fill in form with original post data
-        if (originalPost) {
-            blogTitle.value = originalPost.title;
-            blogContent.value = originalPost.content;
-            publishDate.value = originalPost.publishDate;
-            previewImage.src = originalPost.image;
-            previewImage.style.display = "block";
-        }
+    if (!username) {
+        alert("You must be logged in to create a post.");
+        window.location.href = "/account-login-page.html"; // Redirect to login page
+        return;
     }
 
-    //Handle image preview when a post is selected
-    if (blogImage && previewImage) {
-        blogImage.addEventListener("change", (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    previewImage.src = e.target.result;
-                    previewImage.style.display = "block";
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+    if (!token) {
+        alert("You must be logged in to create a post.");
+        return;
     }
 
-    //Check if posts have been changed
-    const arePostsEqual = (post1, post2) => {
-        return post1.title === post2.title &&
-               post1.content === post2.content &&
-               post1.image === post2.image &&
-               post1.publishDate === post2.publishDate;
+    const postData = {
+        title: title,
+        body: body,
+        published: publishDate, // Ensure the date format is correct
+        media: mediaUrl ? { url: mediaUrl } : {}
     };
 
-    //Form submission when confirm button is clicked
-    if (confirmBtn) {
-        confirmBtn.addEventListener("click", () => {
-            const title = blogTitle.value;
-            const content = blogContent.value;
-            const publishDateValue = publishDate.value;
-            const imageFile = blogImage ? blogImage.files[0] : null;
+    // Check if the image URL exceeds the 300 characters limit
+    if (mediaUrl.length > 300) {
+        alert("Image URL cannot be longer than 300 characters.");
+        return;
+    }
 
-            //Show alert if form is not completely filled in
-            if (!title || !content || !publishDateValue) {
-                alert("Please fill in all fields.");
-                return;
-            }
+    console.log("Post data being sent:", postData); // Debugging
 
-            //Handle post saving
-            const savePost = (imageBase64) => {
-                const newPost = {
-                    id: postId || generateId(),
-                    title,
-                    content,
-                    image: imageBase64,
-                    publishDate: publishDateValue
-                };
-                const posts = getPosts();
-
-                //Check if forms have been changed
-                if (postId && arePostsEqual(newPost, originalPost)) {
-                    alert("No changes detected.");
-                    return;
-                }
-
-                //Update post in local storage
-                if (postId) {
-                    const updatedPosts = posts.map(post =>
-                        post.id === postId ? newPost : post
-                    );
-                    savePosts(updatedPosts);
-                } else {
-                    posts.push(newPost);
-                    savePosts(posts);
-                }
-
-                alert("Post saved successfully!");
-                window.location.href = "post-edit.html";
-            };
-
-            //Handle image files
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    savePost(e.target.result);
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                savePost(originalPost ? originalPost.image : '');
-            }
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(postData)
         });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("API error response:", errorData);
+            throw new Error(`Error ${response.status}: ${errorData.errors ? errorData.errors[0].message : response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log("Post created successfully:", data);
+        alert("Post created successfully!");
+        window.location.href = "/index.html";
+    } catch (error) {
+        console.error("There was a problem creating the post:", error);
+        alert(error.message || "Failed to create post. Check console for details.");
+    }
+}
+
+document.getElementById("confirmBtn").addEventListener("click", async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // Get form inputs
+    const title = document.getElementById("blogTitle").value;
+    const body = document.getElementById("blogContent").value;
+    const publishDate = document.getElementById("publishDate").value;    
+    const blogImageElement = document.getElementById("blogImage");
+
+
+    // Get the image URL from the data-url attribute
+    const mediaUrl = blogImageElement && blogImageElement.value.trim() ? blogImageElement.value.trim() : "";
+    
+    // Ensure required fields are filled
+    if (!title || !body || !publishDate) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // Call createPost with the correct data
+    await createPost(title, body, publishDate, mediaUrl);
+});
+
+// Check if user is logged in
+const token = localStorage.getItem("jwt"); // Fix inconsistent token key
+
+if (!token) {
+    alert("You must be logged in to create a post.");
+    window.location.href = "/account-login-page.html"; // Redirect to login page
+} else {
+    console.log("User is logged in. Token:", token);
+}
+
+document.getElementById("blogImage").addEventListener("change", function (event) {
+    const imageUrl = event.target.value; // Get the URL from the input field
+
+    if (imageUrl) {
+        // Display the image preview
+        document.getElementById("previewImage").src = imageUrl;
+        document.getElementById("previewImage").style.display = "block";
+
+        // Store the URL in a hidden input or global variable
+        event.target.setAttribute("data-url", imageUrl);
+        console.log("Image URL set to:", imageUrl); // Debugging: Check the image URL
+    } else {
+        // Clear the preview if the URL is empty
+        document.getElementById("previewImage").style.display = "none";
+        console.warn("No URL entered.");
     }
 });
+
+console.log("Media URL:", mediaUrl); // Debugging: Check the media URL

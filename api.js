@@ -1,15 +1,13 @@
 //API codes
-const apiKey = 'f160e946-a508-4a3a-8cff-9be4336ee4ec';
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVmljQiIsImVtYWlsIjoidmljYnJvMDI0NThAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3MzkzODM0MjJ9.wx64An-JmnLU_HeQjjuSz1O2ey04DCpKGnHUhpXTTmQ';
-
-//URL
-const newURL = 'https://v2.api.noroff.dev/blog/posts/v';
+const apiKey = '621c701a-a3ce-418b-9cfc-741e32a5f3a9';
+const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVmljQiIsImVtYWlsIjoidmljYnJvMDI0NThAc3R1ZC5ub3JvZmYubm8iLCJpYXQiOjE3Mzk5MTYyMDl9.y6nwaryTZrI20iAXVzr8BuR7RTlfQLGEwISgfUlS6EQ';
+const url = `https://v2.api.noroff.dev/blog/posts/${'vicbro'}`;
 
 const options = {
-    method: 'GET',
+    method: 'POST',
     headers: {
         'Authorization': `Bearer ${accessToken}`,
-        'X-Noroff-API-Key': apiKey,
+        'X-Noroff-API-Key': '621c701a-a3ce-418b-9cfc-741e32a5f3a9',
         'Content-Type': 'application/json'
     }
 };
@@ -17,7 +15,7 @@ const options = {
 //Fetch blogs
 async function fetchPosts() {
     try {
-        const response = await fetch('https://v2.api.noroff.dev/blog/posts/vicbro02458@stud.noroff.no', options);
+        const response = await fetch('https://v2.api.noroff.dev/blog/posts/vicbro02458%40stud.noroff.no', options);
         if (!response.ok) {
         throw new Error('Network response was not ok');
         }
