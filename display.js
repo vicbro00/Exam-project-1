@@ -1,24 +1,80 @@
-
+if (!window.token) {
+    window.token = localStorage.getItem("jwt"); 
+}
 
 async function fetchPosts() {
     try {
-        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB`);
-        if (!response.ok) {
-            throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
+        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB`, {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
-        console.log("Fetched posts:", data); // Debugging
+        const posts = data.data; // Adjust this based on API response structure
 
-        if (!data || !data.data || data.data.length === 0) {
-            console.warn("No posts found.");
-            return;
+        // Only fetch and display posts if we are not on the create post page
+        if (document.getElementById("blogGrid")) {
+            const blogGrid = document.getElementById("blogGrid");
+            blogGrid.innerHTML = ""; // Clear old content
+
+            posts.forEach(post => {
+                const postElement = document.createElement("div");
+                postElement.classList.add("post-item");
+                postElement.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.body}</p>
+                    <img src="${post.media?.url || ''}" alt="Post Image" : "none"}">
+                    <br>
+                    <button class="editBtn" data-id="${post.id}">Edit</button>
+                    <button class="deleteBtn" data-id="${post.id}">Delete</button>
+                    <hr>
+                `;
+                blogGrid.appendChild(postElement);
+            });
+
+            attachEventListeners();
         }
-
-        displayPosts(data.data); // Call a function to render the posts
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
+}
+
+async function deletePost(postId) {
+    if (!confirm("Are you sure you want to delete this post?")) return;
+
+    try {
+        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, { 
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to delete post");
+
+        alert("Post deleted successfully!");
+
+        // Remove post from DOM immediately
+        document.querySelector(`.deleteBtn[data-id="${postId}"]`).parentElement.remove();
+
+    } catch (error) {
+        console.error("Error deleting post:", error);
+    }
+}
+
+function attachEventListeners() {
+    document.querySelectorAll(".editBtn").forEach(button => {
+        button.addEventListener("click", event => {
+            const postId = event.target.dataset.id;
+            window.location.href = `/blog-create-post-page.html?id=${postId}`; // Pass post ID in URL
+        });
+    });
+
+    document.querySelectorAll(".deleteBtn").forEach(button => {
+        button.addEventListener("click", event => {
+            const postId = event.target.dataset.id;
+            deletePost(postId);
+        });
+    });
 }
 
 function displayPosts(posts) {
