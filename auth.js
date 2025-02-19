@@ -1,24 +1,18 @@
-// Check if the current page is the account-login page
 if (window.location.pathname.includes("account-login-page.html")) {
-    // Function to log in a user
     function login() {
-        // Get email and password from input fields
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        // Validate inputs
         if (!email || !password) {
             alert("Please fill in both email and password fields.");
-            return false; // Prevent form submission
+            return false;
         }
 
-        // Prepare the request body
         const loginData = {
             email: email,
             password: password
         };
 
-        // Send login request to the API
         fetch("https://v2.api.noroff.dev/auth/login", {
             method: "POST",
             headers: {
@@ -37,14 +31,12 @@ if (window.location.pathname.includes("account-login-page.html")) {
             return response.json();
         })
         .then(data => {
-            // Save the token and email to localStorage
             localStorage.setItem("jwt", data.data.accessToken);
             localStorage.setItem("email", email.toLowerCase());
 
             console.log("User is now signed in.");
             alert("You are now signed in!");
 
-            // Redirect to the home page
             window.location.href = "./blog-create-post-page.html";
         })
         .catch(error => {
@@ -53,11 +45,20 @@ if (window.location.pathname.includes("account-login-page.html")) {
         });
     }
 
-    // Add event listener to the login form
     document.getElementById("loginForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent the default form submission
-        login(); // Call the login function
+        event.preventDefault();
+        login();
     });
 } else {
     console.log("Not on the account-login-page. Login script will not run.");
 }
+
+//Function only works in create and edit post pages
+document.addEventListener("DOMContentLoaded", () => {
+    const currentPage = window.location.pathname;
+    
+    if (currentPage.includes("blog-create-post-page.html") || currentPage.includes("post-edit.html")) { 
+        const userEmail = localStorage.getItem("email");
+        document.getElementById("email").textContent = userEmail ? userEmail : "Not signed in";
+    }
+});
