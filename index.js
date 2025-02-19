@@ -30,69 +30,101 @@ document.getElementById('sortingBtn').addEventListener('click', () => {
     toggleSortOrder();
 });
 
-//Wait for dom to load before running scripts
+let currentSlide = 0;
+let posts = [];
+
+//Displays the lates posts
+async function fetchLatestPosts() {
+    try {
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch posts");
+
+        const data = await response.json();
+        posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
+        showSlide(currentSlide);
+        createDots();
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+}
+
+//Shows one slide at a time
+function showSlide(index) {
+    const carouselContainer = document.getElementById("carouselContainer");
+    if (!carouselContainer) return;
+
+    carouselContainer.innerHTML = `
+        <div class="slide">
+            <h3>${posts[index].title}</h3>
+            ${posts[index].media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
+            <button onclick="viewPost('${posts[index].id}')">Read More</button>
+        </div>
+    `;
+
+    updateDots(index);
+}
+
+//Displays posts
+function displayCarouselGrid(posts) {
+    const carouselContainer = document.getElementById("carouselContainer");
+    if (!carouselContainer) return;
+
+    if (posts.length > 0) {
+        carouselContainer.innerHTML = posts.map(post => `
+            <div class="carousel-item">
+                <h3>${post.title}</h3>
+                ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
+                <button onclick="viewPost('${post.id}')">Read More</button>
+            </div>
+        `).join("");
+    } else {
+        carouselContainer.innerHTML = "<p>No posts found.</p>";
+    }
+}
+
+//Navigates to post page of the blog post
+window.viewPost = id => {
+    window.location.href = `post.html?id=${id}`;
+};
+
+//Dots for easier navigation
+function createDots() {
+    const carouselDots = document.getElementById("carouselDots");
+    if (!carouselDots) return;
+
+    carouselDots.innerHTML = posts.map((_, i) => 
+        `<li class="carousel-dot" data-index="${i}"></li>`).join("");
+
+    updateDots(currentSlide);
+}
+
+//Displays posts when page loads
 document.addEventListener("DOMContentLoaded", () => {
-    //Retrieves posts from local storage
-    const getPosts = () => JSON.parse(localStorage.getItem('posts')) || [];
-
-    //Shows the three latest posts in carousel
-    const renderCarousel = () => {
-        const carouselContainer = document.getElementById('carouselContainer');
-        if (!carouselContainer) return;
-
-        const posts = getPosts();
-        const sortedPosts = posts.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
-        const latestPosts = sortedPosts.slice(0, 3);
-
-        if (latestPosts.length > 0) {
-            carouselContainer.innerHTML = latestPosts.map(post => `
-                <li class="slide">
-                    <h3>${post.title}</h3>
-                    <img src="${post.image}" alt="${post.title}">
-                    <button onclick="viewPost('${post.id}')">Read More</button>
-                </li>
-                `).join('');
-        } else {
-            carouselContainer.innerHTML = "<li>No posts found.</li>";
-        }
-    };
-
-    //Navigates to post page
-    window.viewPost = id => {
-        localStorage.setItem('selectedPostId', id);
-        window.location.href = 'post.html';
-    };
-
-    //Shows the carousel on index page
-    if (window.location.pathname.includes('index.html')) {
-        renderCarousel();
+    if (window.location.pathname.includes("index.html")) {
+        fetchLatestPosts();
     }
 });
 
-//Tracks the current slide
-let currentSlide = 0;
-
-//Function to show the slides
-const showSlide = (index) => {
-    const slides = document.querySelectorAll('.slide');
-    if (index >= slides.length) currentSlide = 0;
-    if (index < 0) currentSlide = slides.length - 1;
-
-    slides.forEach((slide, i) => {
-        slide.style.display = i === currentSlide ? 'flex' : 'none';
+//Updates the dots
+function updateDots(index) {
+    document.querySelectorAll(".carousel-dot").forEach((dot, i) => {
+        dot.classList.toggle("active-dot", i === index);
     });
-};
+}
 
-//Adds event listeners to the previous and next button for carousel
-document.getElementById('slideBtnPrev').addEventListener('click', () => {
-    currentSlide--;
+//Navigates between carousel posts
+function changeSlide(direction) {
+    currentSlide += direction;
+
+    if (currentSlide >= posts.length) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = posts.length - 1;
+
     showSlide(currentSlide);
-});
+}
 
-document.getElementById('slideBtnNext').addEventListener('click', () => {
-    currentSlide++;
-    showSlide(currentSlide);
-});
-
-//Shows the first carousel slide
-showSlide(currentSlide);
+//Buttons
+document.getElementById("slideBtnPrev").addEventListener("click", () => changeSlide(-1));
+document.getElementById("slideBtnNext").addEventListener("click", () => changeSlide(1));
