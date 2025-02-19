@@ -2,44 +2,26 @@ if (!window.token) {
     window.token = localStorage.getItem("jwt"); 
 }
 
+//Function to display posts on page
 async function fetchPosts() {
     try {
-        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB`, {
+        const response = await fetch('https://v2.api.noroff.dev/blog/posts/VicB', {
             headers: { "Authorization": `Bearer ${token}` }
         });
 
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
-        const posts = data.data; // Adjust this based on API response structure
+        const posts = data.data;
 
-        // Only fetch and display posts if we are not on the create post page
-        if (document.getElementById("blogGrid")) {
-            const blogGrid = document.getElementById("blogGrid");
-            blogGrid.innerHTML = ""; // Clear old content
+        displayPosts(posts);
 
-            posts.forEach(post => {
-                const postElement = document.createElement("div");
-                postElement.classList.add("post-item");
-                postElement.innerHTML = `
-                    <h3>${post.title}</h3>
-                    <p>${post.body}</p>
-                    <img src="${post.media?.url || ''}" alt="Post Image" : "none"}">
-                    <br>
-                    <button class="editBtn" data-id="${post.id}">Edit</button>
-                    <button class="deleteBtn" data-id="${post.id}">Delete</button>
-                    <hr>
-                `;
-                blogGrid.appendChild(postElement);
-            });
-
-            attachEventListeners();
-        }
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
 }
 
+//Function to delete a post
 async function deletePost(postId) {
     if (!confirm("Are you sure you want to delete this post?")) return;
 
@@ -53,7 +35,7 @@ async function deletePost(postId) {
 
         alert("Post deleted successfully!");
 
-        // Remove post from DOM immediately
+        //Deletes post
         document.querySelector(`.deleteBtn[data-id="${postId}"]`).parentElement.remove();
 
     } catch (error) {
@@ -61,11 +43,12 @@ async function deletePost(postId) {
     }
 }
 
+//Functions to buttons
 function attachEventListeners() {
     document.querySelectorAll(".editBtn").forEach(button => {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
-            window.location.href = `/blog-create-post-page.html?id=${postId}`; // Pass post ID in URL
+            window.location.href = `/blog-create-post-page.html?id=${postId}`;
         });
     });
 
@@ -75,23 +58,50 @@ function attachEventListeners() {
             deletePost(postId);
         });
     });
+
+    document.querySelectorAll(".readMoreBtn").forEach(button => {
+        button.addEventListener("click", event => {
+            const postId = event.target.dataset.id;
+            window.location.href = `/post.html?id=${postId}`; // Now redirects to post.html
+        });
+    });
 }
 
+//Function to display posts
 function displayPosts(posts) {
-    const blogGrid = document.getElementById("blogGrid"); // Ensure this element exists in your HTML
-    blogGrid.innerHTML = ""; // Clear old content
+    const blogGrid = document.getElementById("blogGrid");
+    if (!blogGrid) return;
+
+    blogGrid.innerHTML = "";
+
+    const isIndexPage = window.location.pathname === '/index.html';
+    const isPostPage = window.location.pathname.includes('/post.html');
 
     posts.forEach((post) => {
         const postElement = document.createElement("div");
-        postElement.classList.add("post");
-        postElement.innerHTML = `
-            <h2>${post.title}</h2>
+        postElement.classList.add("post-item");
+
+        let postContent = `
+            <h3>${post.title}</h3>
             <p>${post.body}</p>
             ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
-            <p><small>Published: ${post.published}</small></p>
         `;
+
+        //Adds buttons depending on which page the user is on
+        if (isIndexPage) {
+            postContent += `<button class="readMoreBtn" data-id="${post.id}">Read More</button>`;
+        } else if (!isPostPage) {
+            postContent += `
+                <button class="editBtn" data-id="${post.id}">Edit</button>
+                <button class="deleteBtn" data-id="${post.id}">Delete</button>
+            `;
+        }
+
+        postElement.innerHTML = postContent;
         blogGrid.appendChild(postElement);
     });
+
+    attachEventListeners();
 }
 
 async function loadPosts() {
@@ -99,5 +109,5 @@ async function loadPosts() {
     renderPosts(posts);
 }
 
-// Fetch posts when the page loads
+//Fetches posts when page loads
 document.addEventListener("DOMContentLoaded", fetchPosts);
