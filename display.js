@@ -90,12 +90,11 @@ function displayPosts(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
+            ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
-            ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
         `;
 
-        //Adds buttons depending on which page the user is on
         if (isIndexPage) {
             postContent += `<button class="readMoreBtn" data-id="${post.id}">Read More</button>`;
         } else if (!isPostPage) {

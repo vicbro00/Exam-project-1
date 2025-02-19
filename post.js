@@ -25,6 +25,9 @@ function displayPost(post) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
 
+    //Finds who the author of the post is
+    const authorName = post.author && post.author.name ? post.author.name : "Unknown Author";
+
     //Publish date
     const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
         day: "2-digit",
@@ -32,11 +35,13 @@ function displayPost(post) {
         year: "numeric",
     });
 
+    //Displays blog
     blogGrid.innerHTML = `
         <h1>${post.title}</h1>
+        ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
         <p class="post-date">Published on: ${publishDate}</p>
         <p>${post.body}</p>
-        ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
+        <p class="post-author">By: ${authorName}</p>
     `;
 }
 
