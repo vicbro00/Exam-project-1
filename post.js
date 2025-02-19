@@ -25,8 +25,16 @@ function displayPost(post) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
 
+    //Publish date
+    const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+    });
+
     blogGrid.innerHTML = `
         <h1>${post.title}</h1>
+        <p class="post-date">Published on: ${publishDate}</p>
         <p>${post.body}</p>
         ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
     `;

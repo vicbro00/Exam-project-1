@@ -62,7 +62,7 @@ function attachEventListeners() {
     document.querySelectorAll(".readMoreBtn").forEach(button => {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
-            window.location.href = `/post.html?id=${postId}`; // Now redirects to post.html
+            window.location.href = `/post.html?id=${postId}`;
         });
     });
 }
@@ -81,8 +81,16 @@ function displayPosts(posts) {
         const postElement = document.createElement("div");
         postElement.classList.add("post-item");
 
+        //Publish date
+        const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        });
+
         let postContent = `
             <h3>${post.title}</h3>
+            <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
             ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
         `;
