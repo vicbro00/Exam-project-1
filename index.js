@@ -11,9 +11,17 @@ function toggleSortOrder() {
         loadingSpinner.style.display = 'block';
     }
 
-    //Updates the sort button text and arrow icon
+    //Updates the sort button
     sortButton.textContent = `Sort by ${sortOrder === 'newest' ? 'Oldest' : 'Newest'}`;
     sortButton.innerHTML += ' <i class="fa-solid fa-arrow-down"></i>';
+
+    posts.sort((a, b) => {
+        const dateA = new Date(a.created);
+        const dateB = new Date(b.created);
+        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
+
+    displayBlogGrid(posts);
 
     //Hides loading spinner after half a second
     setTimeout(() => {
@@ -29,6 +37,35 @@ document.getElementById('sortingBtn').addEventListener('click', () => {
     sortButton.classList.toggle('flipped');
     toggleSortOrder();
 });
+
+function displayBlogGrid(posts) {
+    const blogGrid = document.getElementById("blogGrid");
+    if (!blogGrid) return;
+
+    blogGrid.innerHTML = "";
+
+    posts.forEach((post) => {
+        const postElement = document.createElement("div");
+        postElement.classList.add("post-item");
+
+        //Publish date
+        const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        });
+
+        let postContent = `
+            <h3>${post.title}</h3>
+            ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
+            <p class="post-date">Published on: ${publishDate}</p>
+            <p>${post.body}</p>
+        `;
+
+        postElement.innerHTML = postContent;
+        blogGrid.appendChild(postElement);
+    });
+}
 
 let currentSlide = 0;
 let posts = [];
@@ -65,24 +102,6 @@ function showSlide(index) {
     `;
 
     updateDots(index);
-}
-
-//Displays posts
-function displayCarouselGrid(posts) {
-    const carouselContainer = document.getElementById("carouselContainer");
-    if (!carouselContainer) return;
-
-    if (posts.length > 0) {
-        carouselContainer.innerHTML = posts.map(post => `
-            <div class="carousel-item">
-                <h3>${post.title}</h3>
-                ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
-                <button onclick="viewPost('${post.id}')">Read More</button>
-            </div>
-        `).join("");
-    } else {
-        carouselContainer.innerHTML = "<p>No posts found.</p>";
-    }
 }
 
 //Navigates to post page of the blog post
@@ -128,3 +147,17 @@ function changeSlide(direction) {
 //Buttons
 document.getElementById("slideBtnPrev").addEventListener("click", () => changeSlide(-1));
 document.getElementById("slideBtnNext").addEventListener("click", () => changeSlide(1));
+
+document.addEventListener("DOMContentLoaded", async () => {
+    if (window.location.pathname.includes("index.html")) {
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            posts = data.data;
+            displayBlogGrid(posts);
+        }
+    }
+});
