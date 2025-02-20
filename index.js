@@ -12,13 +12,13 @@ function toggleSortOrder() {
     }
 
     //Updates the sort button
-    sortButton.textContent = `Sort by ${sortOrder === 'newest' ? 'Oldest' : 'Newest'}`;
+    sortButton.textContent = `Sort by ${sortOrder === 'newest' ? 'oldest' : 'Newest'}`;
     sortButton.innerHTML += ' <i class="fa-solid fa-arrow-down"></i>';
 
     posts.sort((a, b) => {
         const dateA = new Date(a.created);
         const dateB = new Date(b.created);
-        return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+        return sortOrder === 'oldest' ? dateB - dateA : dateA - dateB;
     });
 
     displayBlogGrid(posts);
@@ -60,6 +60,7 @@ function displayBlogGrid(posts) {
             ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
+            <button onclick="viewPost('${posts.id}')">Read More</button>
         `;
 
         postElement.innerHTML = postContent;
@@ -70,7 +71,7 @@ function displayBlogGrid(posts) {
 let currentSlide = 0;
 let posts = [];
 
-//Displays the lates posts
+//Displays the latest posts
 async function fetchLatestPosts() {
     try {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {

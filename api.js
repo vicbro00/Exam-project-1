@@ -11,18 +11,3 @@ const options = {
         'Content-Type': 'application/json'
     }
 };
-
-//Fetch blogs
-async function fetchPosts() {
-    try {
-        const response = await fetch('https://v2.api.noroff.dev/blog/posts/vicbro02458%40stud.noroff.no', options);
-        if (!response.ok) {
-        throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        //Handle any error occurence
-        console.error('There was a problem with the fetch operation:', error);
-    }
-}

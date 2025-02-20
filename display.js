@@ -26,7 +26,11 @@ async function deletePost(postId) {
     if (!confirm("Are you sure you want to delete this post?")) return;
 
     try {
-        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, { 
+        const token = localStorage.getItem("jwt");
+        console.log("Deleting post with ID:", postId);
+        console.log("Using token:", token);
+
+        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${token}` }
         });
@@ -34,9 +38,7 @@ async function deletePost(postId) {
         if (!response.ok) throw new Error("Failed to delete post");
 
         alert("Post deleted successfully!");
-
-        //Deletes post
-        document.querySelector(`.deleteBtn[data-id="${postId}"]`).parentElement.remove();
+        window.location.href = "/index.html";
 
     } catch (error) {
         console.error("Error deleting post:", error);
@@ -109,11 +111,6 @@ function displayPosts(posts) {
     });
 
     attachEventListeners();
-}
-
-async function loadPosts() {
-    const posts = await fetchPosts();
-    renderPosts(posts);
 }
 
 //Fetches posts when page loads
