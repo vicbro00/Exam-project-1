@@ -48,7 +48,7 @@ function displayBlogGrid(posts) {
         const postElement = document.createElement("div");
         postElement.classList.add("post-item");
 
-        //Publish date
+        // Publish date
         const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "long",
@@ -60,13 +60,14 @@ function displayBlogGrid(posts) {
             ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
-            <button onclick="viewPost('${posts.id}')">Read More</button>
+            <button onclick="viewPost('${post.id}')">Read More</button>
         `;
 
         postElement.innerHTML = postContent;
         blogGrid.appendChild(postElement);
     });
 }
+
 
 let currentSlide = 0;
 let posts = [];
@@ -81,6 +82,7 @@ async function fetchLatestPosts() {
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
+        //Shows only 3 posts
         posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
         showSlide(currentSlide);
         createDots();
@@ -162,3 +164,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 });
+
+//Search
+document.getElementById("searchInput").addEventListener("input", (event) => {
+    const searchQuery = event.target.value.trim().toLowerCase();
+    if (searchQuery) {
+        filterPosts(searchQuery);
+    } else {
+        displayBlogGrid(posts);  // Show all posts when input is empty
+    }
+});
+
+//Filter
+function filterPosts(query) {
+    const filteredPosts = posts.filter(post => {
+        const title = post.title.toLowerCase();
+        const body = post.body.toLowerCase();
+        return title.includes(query) || body.includes(query);
+    });
+
+    displayBlogGrid(filteredPosts);
+}
