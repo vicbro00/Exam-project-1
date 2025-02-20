@@ -12,7 +12,7 @@ async function fetchPosts() {
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
-        const posts = data.data;
+        posts = data.data;
 
         displayPosts(posts);
 
