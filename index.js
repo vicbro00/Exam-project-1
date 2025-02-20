@@ -171,7 +171,7 @@ document.getElementById("searchInput").addEventListener("input", (event) => {
     if (searchQuery) {
         filterPosts(searchQuery);
     } else {
-        displayBlogGrid(posts);  // Show all posts when input is empty
+        displayBlogGrid(posts);
     }
 });
 

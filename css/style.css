@@ -69,7 +69,10 @@
     width: 0.5em;
     height: 0.5em;
     border-radius: 50%;
-    background-color: grey;
+    border-style: solid;
+    border-color: rgb(2, 59, 44);
+    border-width: 1px;
+    background-color: white;
     margin: 1em;
 }
 
@@ -79,7 +82,7 @@
 }
 
 .carousel-dots .active-dot {
-    background-color: black;
+    background-color: rgb(2, 59, 44);
 }
 
 .slide img {

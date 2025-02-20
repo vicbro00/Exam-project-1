@@ -41,6 +41,11 @@ a {
     color: black;
 }
 
+.desktop-nav-logged-in,
+.desktop-nav-logged-out {
+    display: none;
+}
+
 header {
     background-color: rgb(119, 176, 170);
     font-family: 'quicksand', 'work sans', 'roboto slab';
@@ -199,22 +204,46 @@ footer i {
         font-size: 1.5em;
     }
 
+    #hamburgerIcon {
+        display: none;
+    }
+
+    header button {
+        background-color: rgb(2, 59, 44);
+        color: white;
+        font-family: 'quicksand';
+        padding: 0.25em 2em;
+        border: none;
+        border-radius: 25px;
+    }
+
+    .desktop-nav-logged-in,
+    .desktop-nav-logged-out {
+        display: block;
+    }
+
+    .desktop-nav-logged-in ul,
+    .desktop-nav-logged-out ul {
+        display: flex;
+        list-style: none;
+        gap: 1em;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+    }
+
+    .desktop-nav-logged-in a,
+    .desktop-nav-logged-out a {
+        text-decoration: none;
+        color: white;
+    }
+
     header {
         padding: 1em 0;
     }
 
-    header i {
-        font-size: 4em;
-    }
-
     header img {
         min-width: 8em;
-    }
-
-    header .hamb-menu-logged-in,
-    header .hamb-menu-logged-out {
-    top: 4em;
-    left: 20em;
     }
 
     header ul {

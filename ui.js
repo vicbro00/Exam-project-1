@@ -74,17 +74,28 @@ const hambMenuLoggedOut = document.getElementById('hambMenuLoggedOut');
 const hambMenuLoggedIn = document.getElementById('hambMenuLoggedIn');
 const signOutButton = document.getElementById('signOutBtn');
 
-//Toggles the menu based on signed in status
+//Toggles the menu depending on if the user is logged in or not
 function toggleMenu() {
     const jwt = localStorage.getItem('jwt');
+    const desktopNavLoggedIn = document.querySelector('.desktop-nav-logged-in');
+    const desktopNavLoggedOut = document.querySelector('.desktop-nav-logged-out');
+    const mobileNavLoggedIn = document.querySelector('.hamb-menu-logged-in');
+    const mobileNavLoggedOut = document.querySelector('.hamb-menu-logged-out');
+
     if (jwt) {
-        hambMenuLoggedOut.style.display = 'none';
-        hambMenuLoggedIn.style.display = 'block';
+        desktopNavLoggedIn.style.display = 'flex';
+        desktopNavLoggedOut.style.display = 'none';
+        mobileNavLoggedIn.style.display = 'block';
+        mobileNavLoggedOut.style.display = 'none';
     } else {
-        hambMenuLoggedOut.style.display = 'block';
-        hambMenuLoggedIn.style.display = 'none';
+        desktopNavLoggedIn.style.display = 'none';
+        desktopNavLoggedOut.style.display = 'flex';
+        mobileNavLoggedIn.style.display = 'none';
+        mobileNavLoggedOut.style.display = 'block';
     }
 }
+
+document.addEventListener("DOMContentLoaded", toggleMenu);
 
 //Shows menu display
 document.addEventListener("DOMContentLoaded", () => {
