@@ -11,3 +11,14 @@
     border-width: 1px;
     border-color: rgb(2, 59, 44);
 }
+
+#blogGrid p {
+    margin: 1em 4em;
+}
+
+/*Desktop styling*/
+@media (min-width: 768px) {
+    #blogGrid img {
+        min-width: 14em;
+    }
+}

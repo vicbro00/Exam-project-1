@@ -51,7 +51,7 @@
     padding: 4em 2em;
     font-family: 'quicksand', 'verdana';
     font-weight: 500;
-    margin: 1em 0;
+    margin: 2em 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +126,7 @@
 /*Desktop styling*/
 @media (min-width: 768px) {
     .slide img {
-        min-width: 12em;
+        min-width: 20em;
     }
 
     .slide {
@@ -145,8 +145,12 @@
     }
 
     .post-item {
-        width: 100%;
+        width: 80%;
         padding: 2em 1em;
+    }
+
+    .post-item img {
+        min-width: 14em;
     }
 
     .post p {
