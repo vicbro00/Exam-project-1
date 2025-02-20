@@ -19,7 +19,12 @@ textarea {
 }
 
 label {
-    font-family: 'quicksand';
+    font-family: 'quicksand', 'work sans', 'roboto slab';
+    font-size: 1.5em;
+}
+
+#createPostForm {
+    margin: 0 2em;
 }
 
 #confirmBtn {
@@ -31,4 +36,23 @@ img {
     justify-content: center;
     text-align: center;
     align-self: center;
+}
+
+/*Desktop styling*/
+@media (min-width: 768px) {
+    #createPostForm {
+        margin: 0;
+    }
+
+    input,
+    textarea {
+        min-height: 2em;
+        resize: none;
+        font-size: 2em;
+        font-family: 'quicksand', 'work sans', 'roboto slab';
+    }
+
+    input {
+        max-width: 50%
+    }
 }
