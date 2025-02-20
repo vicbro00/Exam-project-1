@@ -194,6 +194,10 @@ footer i {
         margin: 0 10em;
     }
 
+    header h1 {
+        font-size: 2em;
+    }
+
     h1,
     h2,
     h3 {
@@ -239,7 +243,9 @@ footer i {
     }
 
     header {
-        padding: 1em 0;
+        padding: 1em;
+        display: flex;
+        justify-content: space-evenly;
     }
 
     header img {
