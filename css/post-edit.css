@@ -30,17 +30,15 @@ h3 {
 }
 
 .blog-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    justify-content: center;
-    background-color: white;
+    display: grid;
+    gap: 2em;
 }
 
 .post-item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
 }
 
 .post-item p {
@@ -52,10 +50,14 @@ h3 {
 }
 
 /*Buttons*/
-button {
+#confirmBtn {
     margin: auto;
     display: flex;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
+}
+
+.post-item button {
+    margin: 1em 0;
 }
 
 .edit-form button {
