@@ -3,11 +3,15 @@ let isSubmitting = false;
 //Check if user is logged in
 const token = localStorage.getItem("jwt");
 
-if (!token) {
-    alert("You must be logged in to create a post.");
-    window.location.href = "/account/login.html";
-} else {
-    console.log("User is logged in. Token:", token);
+if (window.location.pathname.includes("/post/create.html")) {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+        alert("You must be logged in to create a post.");
+        window.location.href = "/account/login.html";
+    } else {
+        console.log("User is logged in. Token:", token);
+    }
 }
 
 //Creates a new post and posts it

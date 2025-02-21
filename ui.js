@@ -82,18 +82,54 @@ function toggleMenu() {
     const mobileNavLoggedIn = document.querySelector('.hamb-menu-logged-in');
     const mobileNavLoggedOut = document.querySelector('.hamb-menu-logged-out');
 
+    const isDesktop = window.innerWidth >= 768;
+
     if (jwt) {
-        desktopNavLoggedIn.style.display = 'flex';
-        desktopNavLoggedOut.style.display = 'none';
-        mobileNavLoggedIn.style.display = 'block';
+        if (isDesktop) {
+            desktopNavLoggedIn.style.display = 'flex';
+            desktopNavLoggedOut.style.display = 'none';
+        } else {
+            desktopNavLoggedIn.style.display = 'none';
+            desktopNavLoggedOut.style.display = 'none';
+        }
+        mobileNavLoggedIn.style.display = 'none';
         mobileNavLoggedOut.style.display = 'none';
     } else {
-        desktopNavLoggedIn.style.display = 'none';
-        desktopNavLoggedOut.style.display = 'flex';
+        if (isDesktop) {
+            desktopNavLoggedIn.style.display = 'none';
+            desktopNavLoggedOut.style.display = 'flex';
+        } else {
+            desktopNavLoggedIn.style.display = 'none';
+            desktopNavLoggedOut.style.display = 'none';
+        }
         mobileNavLoggedIn.style.display = 'none';
-        mobileNavLoggedOut.style.display = 'block';
+        mobileNavLoggedOut.style.display = 'none';
     }
 }
+
+function toggleHamburgerMenu() {
+    const jwt = localStorage.getItem('jwt');
+    const mobileNavLoggedIn = document.querySelector('.hamb-menu-logged-in');
+    const mobileNavLoggedOut = document.querySelector('.hamb-menu-logged-out');
+
+    if (jwt) {
+        if (mobileNavLoggedIn.style.display === 'block') {
+            mobileNavLoggedIn.style.display = 'none';
+        } else {
+            mobileNavLoggedIn.style.display = 'block';
+        }
+    } else {
+        if (mobileNavLoggedOut.style.display === 'block') {
+            mobileNavLoggedOut.style.display = 'none';
+        } else {
+            mobileNavLoggedOut.style.display = 'block';
+        }
+    }
+}
+
+toggleMenu();
+
+window.addEventListener('resize', toggleMenu);
 
 document.addEventListener("DOMContentLoaded", toggleMenu);
 

@@ -37,7 +37,7 @@ if (window.location.pathname.includes("/account/login.html")) {
             console.log("User is now signed in.");
             alert("You are now signed in!");
 
-            window.location.href = "./post/create.html";
+            window.location.href = "/index.html";
         })
         .catch(error => {
             console.error("Error during login:", error);

@@ -1,13 +1,16 @@
 //Fetches posts on post.html
 async function fetchPostById(postId) {
     const token = localStorage.getItem("jwt");
-    const username = 'VicB';
+    const username = "VicB";  
     const url = `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`;
 
+    const headers = {};
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    } 
+
     try {
-        const response = await fetch(url, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
+        const response = await fetch(url, { headers });
 
         if (!response.ok) {
             throw new Error("Failed to fetch the post.");
@@ -54,5 +57,34 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchPostById(postId);
     } else {
         console.error("No post ID provided");
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const shareBtn = document.getElementById("shareBtn");
+
+    if (shareBtn) {
+        shareBtn.addEventListener("click", function () {
+            const postId = getPostIdFromURL();
+            if (postId) {
+                const shareableURL = `${window.location.origin}/post/index.html?id=${postId}`;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: "Check out this blog post!",
+                        url: shareableURL
+                    }).catch(err => console.error("Sharing failed:", err));
+                } else {
+                    navigator.clipboard.writeText(shareableURL).then(() => {
+                        alert("Link copied to clipboard!");
+                    }).catch(err => console.error("Copy failed:", err));
+                }
+            }
+        });
+    }
+
+    function getPostIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
     }
 });

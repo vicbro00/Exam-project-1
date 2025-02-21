@@ -16,6 +16,11 @@
     margin: 1em 4em;
 }
 
+#shareBtn {
+    display: flex;
+    margin: 1em auto;
+}
+
 /*Desktop styling*/
 @media (min-width: 768px) {
     #blogGrid img {
