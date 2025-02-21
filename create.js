@@ -3,17 +3,6 @@ let isSubmitting = false;
 //Check if user is logged in
 const token = localStorage.getItem("jwt");
 
-if (window.location.pathname.includes("/post/create.html")) {
-    const token = localStorage.getItem("jwt");
-
-    if (!token) {
-        alert("You must be logged in to create a post.");
-        window.location.href = "/account/login.html";
-    } else {
-        console.log("User is logged in. Token:", token);
-    }
-}
-
 //Creates a new post and posts it
 async function createPost(title, body, publishDate, mediaUrl = "") {
     const username = localStorage.getItem("email");
@@ -60,9 +49,7 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
 
 //Create new user
 document.addEventListener("DOMContentLoaded", () => {
-    //Check if we're on the register page
     if (window.location.pathname.includes("/account/register.html")) {
-        const registerForm = document.getElementById("registerForm");
         const signUpBtn = document.getElementById("signUpBtn");
         const message = document.getElementById("message");
 
@@ -106,7 +93,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!response.ok) {
                     return response.json().then(errorData => {
                         console.error("Registration failed:", errorData);
-                        // Log the specific errors
                         if (errorData.errors && errorData.errors.length > 0) {
                             errorData.errors.forEach((error, index) => {
                                 console.error(`Error ${index + 1}:`, error);
@@ -118,8 +104,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then(data => {
-                message.textContent = "Registration successful! You can now log in.";
                 console.log("User registered successfully:", data);
+                alert("Registration successful! You can now log in.");
+                window.location.href = "/account/login.html";
             })
             .catch(error => {
                 console.error("Error during registration:", error);
