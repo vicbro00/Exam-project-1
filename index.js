@@ -109,7 +109,7 @@ function showSlide(index) {
 
 //Navigates to post page of the blog post
 window.viewPost = id => {
-    window.location.href = `post.html?id=${id}`;
+    window.location.href = `/post/index.html?id=${id}`;
 };
 
 //Dots for easier navigation

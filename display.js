@@ -50,7 +50,7 @@ function attachEventListeners() {
     document.querySelectorAll(".editBtn").forEach(button => {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
-            window.location.href = `/blog-create-post-page.html?id=${postId}`;
+            window.location.href = `/post/create.html?id=${postId}`;
         });
     });
 
@@ -64,7 +64,7 @@ function attachEventListeners() {
     document.querySelectorAll(".readMoreBtn").forEach(button => {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
-            window.location.href = `/post.html?id=${postId}`;
+            window.location.href = `/post/index.html?id=${postId}`;
         });
     });
 }
@@ -77,7 +77,7 @@ function displayPosts(posts) {
     blogGrid.innerHTML = "";
 
     const isIndexPage = window.location.pathname === '/index.html';
-    const isPostPage = window.location.pathname.includes('/post.html');
+    const isPostPage = window.location.pathname.includes('/post/index.html');
 
     posts.forEach((post) => {
         const postElement = document.createElement("div");

@@ -5,7 +5,7 @@ const token = localStorage.getItem("jwt");
 
 if (!token) {
     alert("You must be logged in to create a post.");
-    window.location.href = "/account-login-page.html";
+    window.location.href = "/account/login.html";
 } else {
     console.log("User is logged in. Token:", token);
 }
@@ -57,7 +57,7 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
 //Create new user
 document.addEventListener("DOMContentLoaded", () => {
     //Check if we're on the register page
-    if (window.location.pathname.includes("account-register-page.html")) {
+    if (window.location.pathname.includes("/account/register.html")) {
         const registerForm = document.getElementById("registerForm");
         const signUpBtn = document.getElementById("signUpBtn");
         const message = document.getElementById("message");

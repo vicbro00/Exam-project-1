@@ -1,4 +1,4 @@
-if (window.location.pathname.includes("account-login-page.html")) {
+if (window.location.pathname.includes("/account/login.html")) {
     function login() {
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
@@ -37,7 +37,7 @@ if (window.location.pathname.includes("account-login-page.html")) {
             console.log("User is now signed in.");
             alert("You are now signed in!");
 
-            window.location.href = "./blog-create-post-page.html";
+            window.location.href = "./post/create.html";
         })
         .catch(error => {
             console.error("Error during login:", error);
@@ -50,14 +50,14 @@ if (window.location.pathname.includes("account-login-page.html")) {
         login();
     });
 } else {
-    console.log("Not on the account-login-page. Login script will not run.");
+    console.log("Not on the login-page. Login script will not run.");
 }
 
 //Function only works in create and edit post pages
 document.addEventListener("DOMContentLoaded", () => {
     const currentPage = window.location.pathname;
     
-    if (currentPage.includes("blog-create-post-page.html") || currentPage.includes("post-edit.html")) { 
+    if (currentPage.includes("/post/create.html") || currentPage.includes("/post/edit.html")) { 
         const userEmail = localStorage.getItem("email");
         document.getElementById("email").textContent = userEmail ? userEmail : "Not signed in";
     }
