@@ -101,3 +101,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
+//Show preview image
+if (window.location.pathname.includes("/post/create.html")) {
+    document.getElementById("blogImage").addEventListener("input", function () {
+        const imageUrl = this.value;
+        const previewImage = document.getElementById("previewImage");
+
+        if (imageUrl) {
+            previewImage.src = imageUrl;
+            previewImage.style.display = "block";
+        } else {
+            previewImage.style.display = "none";
+        }
+    });
+}

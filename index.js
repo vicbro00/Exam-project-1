@@ -57,7 +57,7 @@ function displayBlogGrid(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
-            ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
+            <a href="/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
             <button onclick="viewPost("${post.id}")">Read More</button>

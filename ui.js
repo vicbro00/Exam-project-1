@@ -142,14 +142,17 @@ document.addEventListener("DOMContentLoaded", () => {
 //Handles hamburger click event
 function handleHamburgerClick(event) {
     event.stopPropagation();
+
+    const wasMenuVisible = hambMenuLoggedOut.style.display === "block" || hambMenuLoggedIn.style.display === "block";
+
     showLoadingSpinner();
 
     setTimeout(() => {
-        if (hambMenuLoggedOut.style.display === "block" || hambMenuLoggedIn.style.display === "block") {
+        if (wasMenuVisible) {
             hambMenuLoggedOut.style.display = "none";
             hambMenuLoggedIn.style.display = "none";
         } else {
-            toggleMenu();
+            toggleHamburgerMenu();
         }
 
         hideLoadingSpinner();
