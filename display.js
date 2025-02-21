@@ -1,20 +1,17 @@
-if (!window.token) {
-    window.token = localStorage.getItem("jwt"); 
-}
+//Ensure the token is available
+window.token = window.token || localStorage.getItem("jwt");
 
-//Function to display posts on page
+//Function to display posts on the page
 async function fetchPosts() {
     try {
-        const response = await fetch('https://v2.api.noroff.dev/blog/posts/VicB', {
-            headers: { "Authorization": `Bearer ${token}` }
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
+            headers: { "Authorization": `Bearer ${window.token}` }
         });
 
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
-        posts = data.data;
-
-        displayPosts(posts);
+        displayPosts(data.data);
 
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -26,13 +23,9 @@ async function deletePost(postId) {
     if (!confirm("Are you sure you want to delete this post?")) return;
 
     try {
-        const token = localStorage.getItem("jwt");
-        console.log("Deleting post with ID:", postId);
-        console.log("Using token:", token);
-
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, {
             method: "DELETE",
-            headers: { "Authorization": `Bearer ${token}` }
+            headers: { "Authorization": `Bearer ${window.token}` }
         });
 
         if (!response.ok) throw new Error("Failed to delete post");
@@ -45,26 +38,18 @@ async function deletePost(postId) {
     }
 }
 
-//Functions to buttons
+//Attach event listeners to buttons
 function attachEventListeners() {
-    document.querySelectorAll(".editBtn").forEach(button => {
+    document.querySelectorAll(".editBtn, .deleteBtn, .readMoreBtn").forEach(button => {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
-            window.location.href = `/post/create.html?id=${postId}`;
-        });
-    });
-
-    document.querySelectorAll(".deleteBtn").forEach(button => {
-        button.addEventListener("click", event => {
-            const postId = event.target.dataset.id;
-            deletePost(postId);
-        });
-    });
-
-    document.querySelectorAll(".readMoreBtn").forEach(button => {
-        button.addEventListener("click", event => {
-            const postId = event.target.dataset.id;
-            window.location.href = `/post/index.html?id=${postId}`;
+            if (button.classList.contains("editBtn")) {
+                window.location.href = `/post/create.html?id=${postId}`;
+            } else if (button.classList.contains("deleteBtn")) {
+                deletePost(postId);
+            } else if (button.classList.contains("readMoreBtn")) {
+                window.location.href = `/post/index.html?id=${postId}`;
+            }
         });
     });
 }
@@ -76,14 +61,13 @@ function displayPosts(posts) {
 
     blogGrid.innerHTML = "";
 
-    const isIndexPage = window.location.pathname === '/index.html';
-    const isPostPage = window.location.pathname.includes('/post/index.html');
+    const isIndexPage = window.location.pathname === "/index.html";
+    const isPostPage = window.location.pathname.includes("/post/index.html");
 
     posts.forEach((post) => {
         const postElement = document.createElement("div");
         postElement.classList.add("post-item");
 
-        //Publish date
         const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "long",
@@ -113,5 +97,5 @@ function displayPosts(posts) {
     attachEventListeners();
 }
 
-//Fetches posts when page loads
+//Fetch posts when the page loads
 document.addEventListener("DOMContentLoaded", fetchPosts);

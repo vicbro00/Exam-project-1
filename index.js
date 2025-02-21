@@ -1,24 +1,24 @@
 //Checks current sort order
-let sortOrder = 'newest';
+let sortOrder = "newest";
 
 //Toggles sort order between newest and oldest posts
 function toggleSortOrder() {
-    sortOrder = sortOrder === 'newest' ? 'oldest' : 'newest';
-    const sortButton = document.getElementById('sortingBtn');
-    const loadingSpinner = document.getElementById('loadingSpinner');
+    sortOrder = sortOrder === "newest" ? "oldest" : "newest";
+    const sortButton = document.getElementById("sortingBtn");
+    const loadingSpinner = document.getElementById("loadingSpinner");
 
     if (loadingSpinner) {
-        loadingSpinner.style.display = 'block';
+        loadingSpinner.style.display = "block";
     }
 
     //Updates the sort button
-    sortButton.textContent = `Sort by ${sortOrder === 'newest' ? 'oldest' : 'Newest'}`;
-    sortButton.innerHTML += ' <i class="fa-solid fa-arrow-down"></i>';
+    sortButton.textContent = `Sort by ${sortOrder === "newest" ? "oldest" : "Newest"}`;
+    sortButton.innerHTML += ` <i class="fa-solid fa-arrow-down"></i>`;
 
     posts.sort((a, b) => {
         const dateA = new Date(a.created);
         const dateB = new Date(b.created);
-        return sortOrder === 'oldest' ? dateB - dateA : dateA - dateB;
+        return sortOrder === "oldest" ? dateB - dateA : dateA - dateB;
     });
 
     displayBlogGrid(posts);
@@ -26,15 +26,15 @@ function toggleSortOrder() {
     //Hides loading spinner after half a second
     setTimeout(() => {
         if (loadingSpinner) {
-            loadingSpinner.style.display = 'none';
+            loadingSpinner.style.display = "none";
         }
     }, 500);
 }
 
 //Adds event listener to the sorting button
-document.getElementById('sortingBtn').addEventListener('click', () => {
-    const sortButton = document.getElementById('sortingBtn');
-    sortButton.classList.toggle('flipped');
+document.getElementById("sortingBtn").addEventListener("click", () => {
+    const sortButton = document.getElementById("sortingBtn");
+    sortButton.classList.toggle("flipped");
     toggleSortOrder();
 });
 
@@ -60,7 +60,7 @@ function displayBlogGrid(posts) {
             ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
-            <button onclick="viewPost('${post.id}')">Read More</button>
+            <button onclick="viewPost("${post.id}")">Read More</button>
         `;
 
         postElement.innerHTML = postContent;
@@ -76,7 +76,7 @@ let posts = [];
 async function fetchLatestPosts() {
     try {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
-            headers: { "Authorization": `Bearer ${token}` }
+            headers: { "Authorization": "Bearer ${token}" }
         });
 
         if (!response.ok) throw new Error("Failed to fetch posts");
@@ -100,7 +100,7 @@ function showSlide(index) {
         <div class="slide">
             <h3>${posts[index].title}</h3>
             ${posts[index].media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
-            <button onclick="viewPost('${posts[index].id}')">Read More</button>
+            <button onclick="viewPost("${posts[index].id}")">Read More</button>
         </div>
     `;
 

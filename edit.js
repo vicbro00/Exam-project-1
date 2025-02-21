@@ -36,10 +36,7 @@ async function populateFormWithPostData(postId) {
 
         document.getElementById("blogTitle").value = post.title;
         document.getElementById("blogContent").value = post.body;
-
-        const publishDate = post.published ? post.published.split("T")[0] : new Date().toISOString().split("T")[0];
-        document.getElementById("publishDate").value = publishDate;
-
+        document.getElementById("publishDate").value = post.published?.split("T")[0] || new Date().toISOString().split("T")[0];
         document.getElementById("blogImage").value = post.media?.url || "";
 
         if (post.media?.url) {
@@ -52,7 +49,6 @@ async function populateFormWithPostData(postId) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const postId = new URLSearchParams(window.location.search).get("id");
     populateFormWithPostData(postId);
 });
 
@@ -74,6 +70,7 @@ document.getElementById("confirmBtn").addEventListener("click", async (event) =>
 
 async function editPost(postId, updatedPostData) {
     try {
+        const token = localStorage.getItem("jwt");
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, {
             method: "PUT",
             headers: {

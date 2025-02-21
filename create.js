@@ -3,11 +3,9 @@ let isSubmitting = false;
 //Check if user is logged in
 const token = localStorage.getItem("jwt");
 
-//Creates a new post and posts it
+//Creates or updates a post
 async function createPost(title, body, publishDate, mediaUrl = "") {
     const username = localStorage.getItem("email");
-    const token = localStorage.getItem("jwt");
-
     const postId = new URLSearchParams(window.location.search).get("id");
     const url = postId
         ? `https://v2.api.noroff.dev/blog/posts/VicB/${postId}`
@@ -16,15 +14,15 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
     const method = postId ? "PUT" : "POST";
 
     const postData = {
-        title: title,
-        body: body,
+        title,
+        body,
         published: publishDate,
         media: mediaUrl ? { url: mediaUrl } : {}
     };
 
     try {
         const response = await fetch(url, {
-            method: method,
+            method,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
@@ -47,7 +45,7 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
     }
 }
 
-//Create new user
+//Register a new user
 document.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("/account/register.html")) {
         const signUpBtn = document.getElementById("signUpBtn");
@@ -71,14 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const userData = {
-                name: name,
-                email: email,
-                password: password,
-                bio: bio,
-                bannerUrl: bannerUrl,
-                bannerAlt: bannerAlt
-            };
+            const userData = { name, email, password, bio, bannerUrl, bannerAlt };
 
             console.log("Sending registration data:", JSON.stringify(userData));
 
@@ -93,11 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (!response.ok) {
                     return response.json().then(errorData => {
                         console.error("Registration failed:", errorData);
-                        if (errorData.errors && errorData.errors.length > 0) {
-                            errorData.errors.forEach((error, index) => {
-                                console.error(`Error ${index + 1}:`, error);
-                            });
-                        }
                         throw new Error(errorData.message || "Registration failed");
                     });
                 }
