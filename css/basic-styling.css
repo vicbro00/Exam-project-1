@@ -1,3 +1,4 @@
+/*Global styles*/
 html {
     font-family: 'roboto slab', 'quicksand', 'work sans';
     background-color: rgb(227, 254, 247);
@@ -32,7 +33,6 @@ p {
     font-family: 'quicksand', 'work sans', 'roboto slab';
 }
 
-/*Header styling*/
 a {
     text-decoration: none;
 }
@@ -41,11 +41,11 @@ a {
     color: black;
 }
 
-.desktop-nav-logged-in,
-.desktop-nav-logged-out {
-    display: none;
+.blue {
+    color: rgb(0, 60, 67);
 }
 
+/*Header styling*/
 header {
     background-color: rgb(119, 176, 170);
     font-family: 'quicksand', 'work sans', 'roboto slab';
@@ -80,12 +80,13 @@ header li:hover {
     text-decoration-color: white;
 }
 
-.blue {
-    color: rgb(0, 60, 67);
+.desktop-nav-logged-in,
+.desktop-nav-logged-out {
+    display: none;
 }
 
-header .hamb-menu-logged-in,
-header .hamb-menu-logged-out {
+.hamb-menu-logged-in,
+.hamb-menu-logged-out {
     display: none;
     background-color: rgb(119, 176, 170);
     padding: 1em;
@@ -103,7 +104,7 @@ header .hamb-menu-logged-out {
 
 .hamb-menu-logged-in a,
 .hamb-menu-logged-out a,
-.hamb-menu-logged-out li{
+.hamb-menu-logged-out li {
     text-decoration: none;
     color: white;
 }
@@ -123,6 +124,7 @@ button:hover {
     cursor: pointer;
 }
 
+/*Form and input styles*/
 #searchInput {
     padding: 0.25em 1em;
     border: none;
@@ -143,12 +145,6 @@ footer img {
     max-height: 4em;
 }
 
-.footer-bar {
-    background-color: rgb(2, 59, 44);
-    height: 2px;
-    margin: 2em 0;
-}
-
 footer p {
     color: white;
     font-family: 'work sans';
@@ -156,6 +152,12 @@ footer p {
 
 footer i {
     color: rgb(2, 59, 44);
+}
+
+.footer-bar {
+    background-color: rgb(2, 59, 44);
+    height: 2px;
+    margin: 2em 0;
 }
 
 .footer-top,
@@ -189,12 +191,13 @@ footer i {
 }
 
 @keyframes spin {
-    0% {transform: rotate(0deg);}
-    100% {transform: rotate(360deg);}
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /*Desktop styling*/
 @media (min-width: 768px) {
+    /*Global styles*/
     html {
         margin: 0 10em;
     }
@@ -213,10 +216,13 @@ footer i {
         font-size: 1.5em;
     }
 
-    #hamburgerIcon {
-        display: none;
+    /* Header styling */
+    header {
+        padding: 1em;
+        display: flex;
+        justify-content: space-evenly;
     }
-
+    
     header button {
         background-color: rgb(2, 59, 44);
         color: white;
@@ -224,6 +230,18 @@ footer i {
         padding: 0.25em 2em;
         border: none;
         border-radius: 25px;
+    }
+
+    header img {
+        min-width: 8em;
+    }
+
+    header ul {
+        font-size: 1.5em;
+    }
+
+    #hamburgerIcon {
+        display: none;
     }
 
     .desktop-nav-logged-in,
@@ -246,26 +264,14 @@ footer i {
         text-decoration: none;
         color: white;
     }
-
-    header {
-        padding: 1em;
-        display: flex;
-        justify-content: space-evenly;
-    }
-
-    header img {
-        min-width: 8em;
-    }
-
-    header ul {
-        font-size: 1.5em;
-    }
     
+    /* Button styling */
     button {
         padding: 1em 4em;
         font-size: 1em;
     }
 
+    /* Footer styling */
     footer i {
         font-size: 4em;
         margin: 0 1rem;

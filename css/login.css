@@ -1,7 +1,4 @@
-#loginForm div {
-    margin: 1em 0;
-}
-
+/*Form styles*/
 input {
     border-color: rgb(2, 59, 44);
     border-style: solid;
@@ -15,11 +12,8 @@ label {
     margin: 0 2em;
 }
 
-.input-group {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-content: center;
+#loginForm div {
+    margin: 1em 0;
 }
     
 .input-group div {
@@ -32,8 +26,16 @@ label {
     margin: auto;
 }
 
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
 /*Desktop styling*/
 @media (min-width: 768px) {
+    /*Form styles*/
     input,
     label {
         font-size: 2em;
