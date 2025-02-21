@@ -48,7 +48,7 @@ function displayBlogGrid(posts) {
         const postElement = document.createElement("div");
         postElement.classList.add("post-item");
 
-        // Publish date
+        //Publish date
         const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "long",
