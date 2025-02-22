@@ -24,50 +24,39 @@ async function fetchPostById(postId) {
 }
 
 //Displays posts on post.html
-function displayPosts(posts) {
+function displayPosts(post) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
 
-    blogGrid.innerHTML = "";
+    //Finds who the author of the post is
+    const authorName = post.author && post.author.name ? post.author.name : "Unknown Author";
 
-    if (!Array.isArray(posts)) {
-        console.error("Expected an array but got:", posts);
-        return;
-    }
-
-    posts.forEach((post) => { 
-        const postElement = document.createElement("div");
-        postElement.classList.add("post-item");
-
-        const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-        });
-
-        let postContent = `
-            <h3>${post.title}</h3>
-            ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
-            <p class="post-date">Published on: ${publishDate}</p>
-            <p>${post.body}</p>
-        `;
-
-        postElement.innerHTML = postContent;
-        blogGrid.appendChild(postElement);
+    //Publish date
+    const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
     });
 
-    attachEventListeners();
+    //Displays blog
+    blogGrid.innerHTML = `
+        <h1>${post.title}</h1>
+        ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
+        <p class="post-date">Published on: ${publishDate}</p>
+        <p>${post.body}</p>
+        <p class="post-author">By: ${authorName}</p>
+    `;
 }
 
 //Fetches the correct post
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get("id");
-    
+
     if (postId) {
-    fetchPostById(postId);
+        fetchPostById(postId);
     } else {
-    console.error("No post ID provided");
+        console.error("No post ID provided");
     }
 });
 
