@@ -91,7 +91,3 @@ document.addEventListener("DOMContentLoaded", function () {
         return params.get("id");
     }
 });
-
-document.addEventListener("DOMContentLoaded", () => {
-    fetchPosts();
-});
