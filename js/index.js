@@ -203,3 +203,15 @@ document.addEventListener("DOMContentLoaded", () => {
         fetchLatestPosts();
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.location.pathname.includes("/Exam-project-1/index.html")) {
+        fetchLatestPosts();
+    }
+});
+
+document.addEventListener("visibilitychange", function () {
+    if (!document.hidden && window.location.pathname.includes("/Exam-project-1/index.html")) {
+        fetchLatestPosts();
+    }
+});
