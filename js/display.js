@@ -84,7 +84,7 @@ function displayPosts(posts) {
         `;
 
         if (isIndexPage) {
-            postContent += `<button onclick="viewPost('${post[index].id}')">Read More</button>`;
+            postContent += `<button onclick="viewPost('${post.id}')">Read More</button>`;
         } else if (!isPostPage) {
             postContent += `
                 <button class="editBtn" data-id="${post.id}">Edit</button>
