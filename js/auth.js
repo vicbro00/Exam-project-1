@@ -1,5 +1,5 @@
 //Check if this is the login page
-if (window.location.pathname.includes("/account/login.html")) {
+if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/account/login.html")) {
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault();
         login();
@@ -57,7 +57,7 @@ function login() {
 //Adds event listener when document is loaded
 document.addEventListener("DOMContentLoaded", () => {
     //Checks if this is the register page
-    if (window.location.pathname.includes("/account/register.html")) {
+    if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/account/register.html")) {
         const signUpBtn = document.getElementById("signUpBtn");
         const message = document.getElementById("message");
 
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(data => {
                 console.log("User registered successfully:", data);
                 alert("Registration successful! You can now log in.");
-                window.location.href = "/account/login.html";
+                window.location.href = "https://vicbro00.github.io/Exam-project-1/account/login.html";
             })
             .catch(error => {
                 console.error("Error during registration:", error);
