@@ -186,3 +186,22 @@ function filterPosts(query) {
 
     displayBlogGrid(filteredPosts);
 }
+
+async function fetchLatestPosts() {
+    try {
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch posts");
+
+        const data = await response.json();
+        // Shows only 3 posts
+        posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
+        console.log("Fetched posts:", posts); // Debugging
+        showSlide(currentSlide);
+        createDots();
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+}
