@@ -89,7 +89,7 @@ async function editPost(postId, updatedPostData) {
         if (!response.ok) throw new Error("Failed to update post");
 
         alert("Post updated successfully!");
-        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+        window.location.href = "/Exam-project-1/index.html";
 
     } catch (error) {
         console.error("Error updating post:", error);
