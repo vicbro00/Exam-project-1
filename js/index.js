@@ -137,7 +137,7 @@ function createDots() {
 
 //Displays posts when page loads
 document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/index.html")) {
+    if (window.location.pathname.includes("/Exam-project-1/index.html")) {
         fetchLatestPosts();
     }
 });
@@ -164,7 +164,7 @@ document.getElementById("slideBtnPrev").addEventListener("click", () => changeSl
 document.getElementById("slideBtnNext").addEventListener("click", () => changeSlide(1));
 
 document.addEventListener("DOMContentLoaded", async () => {
-    if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/index.html")) {
+    if (window.location.pathname.includes("/Exam-project-1/index.html")) {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
             headers: { "Authorization": `Bearer ${token}` }
         });
