@@ -112,7 +112,7 @@ function showSlide(index) {
         <div class="slide">
             <h3>${posts[index]?.title}</h3>
             ${posts[index]?.media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
-            <button onclick="viewPost('${posts.id}')">Read More</button>
+            <button onclick="viewPost('${posts[index].id}')">Read More</button>
         </div>
     `;
 
