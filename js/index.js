@@ -83,10 +83,16 @@ async function fetchLatestPosts() {
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
-        posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
-        console.log("Fetched posts:", posts);
-        showSlide(currentSlide);
-        createDots();
+        console.log("API Response:", data);
+
+        if (data.data && data.data.length > 0) {
+            posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
+            console.log("Fetched posts:", posts);
+            showSlide(currentSlide);
+            createDots();
+        } else {
+            console.error("No posts available in the API response.");
+        }
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
@@ -104,8 +110,8 @@ function showSlide(index) {
 
     carouselContainer.innerHTML = `
         <div class="slide">
-            <h3>${posts[index].title}</h3>
-            ${posts[index].media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
+            <h3>${posts[index]?.title}</h3>
+            ${posts[index]?.media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
             <button onclick="viewPost('${posts[index].id}')">Read More</button>
         </div>
     `;
@@ -193,7 +199,7 @@ function filterPosts(query) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/index.html")) {
+    if (window.location.pathname.includes("/Exam-project-1/index.html")) {
         fetchLatestPosts();
     }
 });
