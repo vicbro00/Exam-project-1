@@ -1,13 +1,13 @@
 //Fetches posts on post.html
 async function fetchPostById(postId) {
     const token = localStorage.getItem("jwt");
-    const username = "VicB";  
+    const username = "VicB";
     const url = `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`;
 
     const headers = {};
     if (token) {
         headers["Authorization"] = `Bearer ${token}`;
-    } 
+    }
 
     try {
         const response = await fetch(url, { headers });
@@ -17,7 +17,7 @@ async function fetchPostById(postId) {
         }
 
         const data = await response.json();
-        displayPost(data.data);
+        displayPost(data);
     } catch (error) {
         console.error("Error fetching post:", error);
     }
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const postId = getPostIdFromURL();
             if (postId) {
                 const shareableURL = `${window.location.origin}/post/index.html?id=${postId}`;
-                
+
                 if (navigator.share) {
                     navigator.share({
                         title: "Check out this blog post!",
@@ -88,4 +88,26 @@ document.addEventListener("DOMContentLoaded", function () {
         const params = new URLSearchParams(window.location.search);
         return params.get("id");
     }
+});
+
+async function fetchPosts() {
+    const token = localStorage.getItem("jwt");
+    try {
+        // Fetches blogs from api
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch posts");
+
+        const data = await response.json();
+        displayPosts(data);
+
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetchPosts();
 });
