@@ -58,7 +58,7 @@ function displayBlogGrid(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
-            <a href="https://vicbro00.github.io/Exam-project-1/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
+            <a href="/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
             <button onclick="viewPost('${post.id}')">Read More</button>
@@ -110,7 +110,7 @@ function showSlide(index) {
 
 //Navigates to post page of the blog post
 window.viewPost = id => {
-    window.location.href = `https://vicbro00.github.io/Exam-project-1/post/index.html?id=${id}`;
+    window.location.href = `/post/index.html?id=${id}`;
 };
 
 //Dots for easier navigation

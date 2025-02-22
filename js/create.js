@@ -44,7 +44,7 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
         const data = await response.json();
         console.log(postId ? "Post updated successfully:" : "Post created successfully:", data);
         alert(postId ? "Post updated successfully!" : "Post created successfully!");
-        window.location.href = "/index.html";
+        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
     } catch (error) {
         console.error("There was a problem:", error);
         alert(error.message || "Failed to save post. Check console for details.");

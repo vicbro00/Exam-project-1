@@ -46,11 +46,11 @@ function attachEventListeners() {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
             if (button.classList.contains("editBtn")) {
-                window.location.href = `https://vicbro00.github.io/Exam-project-1/post/edit.html?id=${postId}`;
+                window.location.href = `/post/edit.html?id=${postId}`;
             } else if (button.classList.contains("deleteBtn")) {
                 deletePost(postId);
             } else if (button.classList.contains("readMoreBtn")) {
-                window.location.href = `https://vicbro00.github.io/Exam-project-1/post/index.html?id=${postId}`;
+                window.location.href = `/post/index.html?id=${postId}`;
             }
         });
     });
@@ -63,7 +63,7 @@ function displayPosts(posts) {
 
     blogGrid.innerHTML = "";
 
-    const isIndexPage = window.location.pathname === "/index.html";
+    const isIndexPage = window.location.pathname === "https://vicbro00.github.io/Exam-project-1/index.html";
     const isPostPage = window.location.pathname.includes("/post/index.html");
 
     posts.forEach((post) => {
