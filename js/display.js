@@ -50,7 +50,7 @@ function attachEventListeners() {
             } else if (button.classList.contains("deleteBtn")) {
                 deletePost(postId);
             } else if (button.classList.contains("readMoreBtn")) {
-                window.location.href = `/post/index.html?id=${postId}`;
+                window.location.href = `/Exam-project-1//post/index.html?id=${postId}`;
             }
         });
     });
