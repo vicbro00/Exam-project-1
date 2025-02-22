@@ -62,6 +62,18 @@
 
     <main>
         <h2>Signed in as: <span id="email"></as:span></h2>
+        <form class="edit-form" id="createPostForm">
+            <label for="blogTitle">Blog title:</label>
+            <input type="text" id="blogTitle">
+            <label for="blogContent">Blog content:</label>
+            <textarea id="blogContent" rows="5" required></textarea>
+            <label for="publishDate">Publish Date:</label>
+            <input type="date" id="publishDate" required>
+            <label for="blogImage">Blog image:</label>
+            <input type="url" id="blogImage" placeholder="Enter image URL">
+            <img id="previewImage" alt="Image preview">
+        </form>
+        <button class="confirm-btn" id="confirmBtn" type="submit">Confirm edits</button>
         <button id="confirmBtn" onclick="window.location.href='/post/create.html'">Create New Post</button>
         <div class="blog-grid" id="blogGrid"></div>
     </main>
@@ -84,6 +96,7 @@
 
     <script src="/display.js" defer></script>
     <script src="/create.js" defer></script>
+    <script src="/edit.js" defer></script>
     <script src="/auth.js" defer></script>
     <script src="/api.js" defer></script>
     <script src="/ui.js" defer></script>
