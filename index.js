@@ -38,6 +38,7 @@ document.getElementById("sortingBtn").addEventListener("click", () => {
     toggleSortOrder();
 });
 
+//Displays posts in a blog grid
 function displayBlogGrid(posts) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
@@ -68,7 +69,7 @@ function displayBlogGrid(posts) {
     });
 }
 
-
+//Tracks current slide index
 let currentSlide = 0;
 let posts = [];
 

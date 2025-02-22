@@ -21,6 +21,7 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
     };
 
     try {
+        //Sends a request to create or update post
         const response = await fetch(url, {
             method,
             headers: {
@@ -45,8 +46,9 @@ async function createPost(title, body, publishDate, mediaUrl = "") {
     }
 }
 
-//Register a new user
+//Adds event listener when document is loaded
 document.addEventListener("DOMContentLoaded", () => {
+    //Checks if this is the register page
     if (window.location.pathname.includes("/account/register.html")) {
         const signUpBtn = document.getElementById("signUpBtn");
         const message = document.getElementById("message");
@@ -56,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             registerUser();
         });
 
+        //Function to register a new user
         function registerUser() {
             const name = document.getElementById("name").value;
             const email = document.getElementById("email").value;
@@ -102,12 +105,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-//Show preview image
+//Checks if this is the create page
 if (window.location.pathname.includes("/post/create.html")) {
     document.getElementById("blogImage").addEventListener("input", function () {
         const imageUrl = this.value;
         const previewImage = document.getElementById("previewImage");
 
+        //Previews image
         if (imageUrl) {
             previewImage.src = imageUrl;
             previewImage.style.display = "block";

@@ -4,6 +4,7 @@ window.token = window.token || localStorage.getItem("jwt");
 //Function to display posts on the page
 async function fetchPosts() {
     try {
+        //Fetches blogs from api
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
             headers: { "Authorization": `Bearer ${window.token}` }
         });
@@ -23,6 +24,7 @@ async function deletePost(postId) {
     if (!confirm("Are you sure you want to delete this post?")) return;
 
     try {
+        //Sends a DELETE request to the api
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, {
             method: "DELETE",
             headers: { "Authorization": `Bearer ${window.token}` }

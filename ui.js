@@ -107,6 +107,7 @@ function toggleMenu() {
     }
 }
 
+//Toggles the hamburger menu in mobile view
 function toggleHamburgerMenu() {
     const jwt = localStorage.getItem("jwt");
     const mobileNavLoggedIn = document.querySelector(".hamb-menu-logged-in");

@@ -1,3 +1,4 @@
+//Check if this is the login page
 if (window.location.pathname.includes("/account/login.html")) {
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault();
@@ -7,10 +8,12 @@ if (window.location.pathname.includes("/account/login.html")) {
     console.log("Not on the login page. Login script will not run.");
 }
 
+//Handles login process
 function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
+    //Check if email and password are provided
     if (!email || !password) {
         alert("Please fill in both email and password fields.");
         return;
@@ -18,6 +21,7 @@ function login() {
 
     const loginData = { email, password };
 
+    //Sends a POST request to the api
     fetch("https://v2.api.noroff.dev/auth/login", {
         method: "POST",
         headers: {
@@ -50,6 +54,7 @@ function login() {
     });
 }
 
+//Adds event listener when document is loaded
 document.addEventListener("DOMContentLoaded", () => {
     const currentPage = window.location.pathname;
 

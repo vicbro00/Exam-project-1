@@ -1,8 +1,10 @@
+//Post ID
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 
 console.log("Post ID:", postId);
 
+//Fetches post by its ID
 async function fetchPostById(postId) {
     try {
         const token = localStorage.getItem("jwt");
@@ -23,6 +25,7 @@ async function fetchPostById(postId) {
     }
 }
 
+//Fills the forms with the post ID data
 async function populateFormWithPostData(postId) {
     if (!postId) {
         console.warn("No post ID provided.");
@@ -48,10 +51,12 @@ async function populateFormWithPostData(postId) {
     }
 }
 
+//Adds event listener when document is loaded
 document.addEventListener("DOMContentLoaded", () => {
     populateFormWithPostData(postId);
 });
 
+//Event listener for button
 document.getElementById("confirmBtn").addEventListener("click", async (event) => {
     event.preventDefault();
 
@@ -68,6 +73,7 @@ document.getElementById("confirmBtn").addEventListener("click", async (event) =>
     await createPost(title, body, publishDate, mediaUrl);
 });
 
+//Function to edit a post
 async function editPost(postId, updatedPostData) {
     try {
         const token = localStorage.getItem("jwt");

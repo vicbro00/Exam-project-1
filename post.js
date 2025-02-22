@@ -23,7 +23,7 @@ async function fetchPostById(postId) {
     }
 }
 
-//Displayds posts on post.html
+//Displays posts on post.html
 function displayPost(post) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+//Creates a link button to share the url and copies to clipboard
 document.addEventListener("DOMContentLoaded", function () {
     const shareBtn = document.getElementById("shareBtn");
 
