@@ -175,7 +175,7 @@ function signOut() {
         
         if (loadingSpinner) loadingSpinner.style.display = "none";
 
-        window.location.href = "index.html";  
+        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";  
     }, 500);
 }
 

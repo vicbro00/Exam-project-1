@@ -58,7 +58,7 @@ function displayBlogGrid(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
-            <a href="/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
+            <a href="https://vicbro00.github.io/Exam-project-1/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
             <button onclick="viewPost('${post.id}')">Read More</button>
@@ -110,7 +110,7 @@ function showSlide(index) {
 
 //Navigates to post page of the blog post
 window.viewPost = id => {
-    window.location.href = `/post/index.html?id=${id}`;
+    window.location.href = `https://vicbro00.github.io/Exam-project-1/post/index.html?id=${id}`;
 };
 
 //Dots for easier navigation
@@ -126,7 +126,7 @@ function createDots() {
 
 //Displays posts when page loads
 document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname.includes("index.html")) {
+    if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/index.html")) {
         fetchLatestPosts();
     }
 });
@@ -153,7 +153,7 @@ document.getElementById("slideBtnPrev").addEventListener("click", () => changeSl
 document.getElementById("slideBtnNext").addEventListener("click", () => changeSlide(1));
 
 document.addEventListener("DOMContentLoaded", async () => {
-    if (window.location.pathname.includes("index.html")) {
+    if (window.location.pathname.includes("https://vicbro00.github.io/Exam-project-1/index.html")) {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
             headers: { "Authorization": `Bearer ${token}` }
         });
