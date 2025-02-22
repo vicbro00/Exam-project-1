@@ -46,7 +46,7 @@ function login() {
         console.log("User is now signed in.");
         alert("You are now signed in!");
 
-        window.location.href = "/index.html";
+        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
     })
     .catch(error => {
         console.error("Error during login:", error);
