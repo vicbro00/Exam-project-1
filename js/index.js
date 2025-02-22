@@ -100,7 +100,7 @@ async function fetchLatestPosts() {
         posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
         console.log("Fetched posts:", posts);
     } else {
-        console.error("No posts available in the API response.", data);
+        console.error("No posts available in the API response.");
     }
 }
 
