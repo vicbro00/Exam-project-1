@@ -3,6 +3,7 @@ async function fetchPostById(postId) {
     const token = localStorage.getItem("jwt");
     const username = "VicB";
     const url = `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`;
+    console.log("Fetching post with ID:", postId);
 
     const headers = {};
     if (token) {
@@ -11,12 +12,13 @@ async function fetchPostById(postId) {
 
     try {
         const response = await fetch(url, { headers });
-
+        console.log("Response status:", response.status);
         if (!response.ok) {
             throw new Error("Failed to fetch the post.");
         }
 
         const data = await response.json();
+        console.log("Post data:", data);
         displayPosts(data);
     } catch (error) {
         console.error("Error fetching post:", error);
