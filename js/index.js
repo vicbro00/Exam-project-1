@@ -121,7 +121,7 @@ function showSlide(index) {
 
 //Navigates to post page of the blog post
 window.viewPost = id => {
-    window.location.href = `/post/index.html?id=${id}`;
+    window.location.href = `/Exam-project-1/post/index.html?id=${id}`;
 };
 
 //Dots for easier navigation
