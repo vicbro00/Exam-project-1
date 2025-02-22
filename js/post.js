@@ -19,7 +19,9 @@ async function fetchPostById(postId) {
 
         const data = await response.json();
         console.log("Post data:", data);
-        displayPosts(data);
+
+        const post = data.data;
+        displayPosts(post);
     } catch (error) {
         console.error("Error fetching post:", error);
     }
@@ -29,6 +31,8 @@ async function fetchPostById(postId) {
 function displayPosts(post) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
+
+    console.log("Post object:", post);
 
     //Finds who the author of the post is
     const authorName = post.author && post.author.name ? post.author.name : "Unknown Author";
