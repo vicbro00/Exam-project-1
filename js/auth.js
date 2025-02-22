@@ -1,5 +1,17 @@
+function isLoggedIn() {
+    const token = localStorage.getItem("jwt");
+    return token !== null;
+}
+
+function redirectIfNotLoggedIn() {
+    if (!isLoggedIn()) {
+        alert("You must be logged in to access this page.");
+        window.location.href = "/Exam-project-1/account/login.html";
+    }
+}
+
 //Check if this is the login page
-if (window.location.pathname.includes("/account/login.html")) {
+if (window.location.pathname.includes("/Exam-project-1/account/login.html")) {
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault();
         login();
@@ -46,7 +58,7 @@ function login() {
         console.log("User is now signed in.");
         alert("You are now signed in!");
 
-        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+        window.location.href = "/Exam-project-1/index.html";
     })
     .catch(error => {
         console.error("Error during login:", error);
@@ -57,7 +69,7 @@ function login() {
 //Adds event listener when document is loaded
 document.addEventListener("DOMContentLoaded", () => {
     //Checks if this is the register page
-    if (window.location.pathname.includes("/account/register.html")) {
+    if (window.location.pathname.includes("/Exam-project-1/account/register.html")) {
         const signUpBtn = document.getElementById("signUpBtn");
         const message = document.getElementById("message");
 
@@ -103,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(data => {
                 console.log("User registered successfully:", data);
                 alert("Registration successful! You can now log in.");
-                window.location.href = "/account/login.html";
+                window.location.href = "/Exam-project-1/account/login.html";
             })
             .catch(error => {
                 console.error("Error during registration:", error);

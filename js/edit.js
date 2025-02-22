@@ -1,3 +1,14 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const currentPage = window.location.pathname;
+
+    if (currentPage.includes("/post/create.html") || currentPage.includes("/post/edit.html")) {
+        redirectIfNotLoggedIn();
+
+        const userEmail = localStorage.getItem("email");
+        document.getElementById("email").textContent = userEmail || "Not signed in";
+    }
+});
+
 //Post ID
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
