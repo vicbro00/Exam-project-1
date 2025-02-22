@@ -90,57 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-async function fetchPosts() {
-    const token = localStorage.getItem("jwt");
-    try {
-        // Fetches blogs from api
-        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        if (!response.ok) throw new Error("Failed to fetch posts");
-
-        const data = await response.json();
-        displayPosts(data);
-
-    } catch (error) {
-        console.error("Error fetching posts:", error);
-    }
-}
-
-function displayPosts(posts) {
-    const blogGrid = document.getElementById("blogGrid");
-    if (!blogGrid) return;
-
-    blogGrid.innerHTML = "";
-
-    const isIndexPage = window.location.pathname === "/Exam-project-1/index.html";
-    const isPostPage = window.location.pathname.includes("/Exam-project-1/post/index.html");
-
-    posts.forEach((post) => { 
-        const postElement = document.createElement("div");
-        postElement.classList.add("post-item");
-
-        const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric",
-        });
-
-        let postContent = `
-            <h3>${post.title}</h3>
-            ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
-            <p class="post-date">Published on: ${publishDate}</p>
-            <p>${post.body}</p>
-        `;
-
-        postElement.innerHTML = postContent;
-        blogGrid.appendChild(postElement);
-    });
-
-    attachEventListeners();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
     fetchPosts();
 });
