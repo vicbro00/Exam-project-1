@@ -63,10 +63,10 @@ function displayPosts(posts) {
 
     blogGrid.innerHTML = "";
 
-    const isIndexPage = window.location.pathname === "https://vicbro00.github.io/Exam-project-1/index.html";
-    const isPostPage = window.location.pathname.includes("/Exam-project-1/post/index.html");
+    const isIndexPage = window.location.pathname === "/index.html";
+    const isPostPage = window.location.pathname.includes("/post/index.html");
 
-    posts.forEach((post) => {
+    posts.forEach((post) => { 
         const postElement = document.createElement("div");
         postElement.classList.add("post-item");
 
