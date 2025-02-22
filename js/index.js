@@ -96,6 +96,12 @@ async function fetchLatestPosts() {
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
+    if (data.data && data.data.length > 0) {
+        posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
+        console.log("Fetched posts:", posts);
+    } else {
+        console.error("No posts available in the API response.");
+    }
 }
 
 //Shows one slide at a time
