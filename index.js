@@ -61,7 +61,7 @@ function displayBlogGrid(posts) {
             <a href="/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
-            <button onclick="viewPost("${post.id}")">Read More</button>
+            <button onclick="viewPost('${post.id}')">Read More</button>
         `;
 
         postElement.innerHTML = postContent;
@@ -77,7 +77,7 @@ let posts = [];
 async function fetchLatestPosts() {
     try {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
-            headers: { "Authorization": "Bearer ${token}" }
+            headers: { "Authorization": `Bearer ${token}` }
         });
 
         if (!response.ok) throw new Error("Failed to fetch posts");
@@ -101,7 +101,7 @@ function showSlide(index) {
         <div class="slide">
             <h3>${posts[index].title}</h3>
             ${posts[index].media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
-            <button onclick="viewPost("${posts[index].id}")">Read More</button>
+            <button onclick="viewPost('${posts[index].id}')">Read More</button>
         </div>
     `;
 

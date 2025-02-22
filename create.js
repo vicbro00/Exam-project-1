@@ -3,6 +3,11 @@ let isSubmitting = false;
 //Check if user is logged in
 const token = localStorage.getItem("jwt");
 
+if (!token && window.location.pathname.includes("/post/create.html")) {
+    alert("You must be logged in to access this page.");
+    window.location.href = "/account/login.html";
+}
+
 //Creates or updates a post
 async function createPost(title, body, publishDate, mediaUrl = "") {
     const username = localStorage.getItem("email");
