@@ -86,8 +86,14 @@ function login() {
         return data;
     }))
     .then(data => {
-        localStorage.setItem("jwt", data.data.accessToken);
+        const accessToken = data.data.accessToken;
+        localStorage.setItem("jwt", accessToken);
         localStorage.setItem("email", email.toLowerCase());
+
+        // Log the token and other information to the console
+        console.log("Access Token:", accessToken);
+        console.log("User Email:", email);
+        console.log("Login Response Data:", data);
 
         alert("You are now signed in!");
         window.location.href = "/index.html";

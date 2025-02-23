@@ -5,6 +5,23 @@ const prevBtn = document.getElementById("slideBtnPrev");
 const nextBtn = document.getElementById("slideBtnNext");
 const dots = document.querySelectorAll(".carousel-dots li");
 
+document.addEventListener("DOMContentLoaded", () => {
+    logUserSession();
+});
+
+function logUserSession() {
+    const token = localStorage.getItem("jwt");
+    const email = localStorage.getItem("email");
+
+    if (token && email) {
+        console.log("User is logged in:");
+        console.log("Access Token:", token);
+        console.log("User Email:", email);
+    } else {
+        console.log("User is not logged in.");
+    }
+}
+
 //Tracks current slide index
 let currentIndex = 0;
 
