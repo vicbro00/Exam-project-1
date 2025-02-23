@@ -60,7 +60,7 @@ header {
     z-index: 1000;
 }
 
-header i {
+header span {
     color: white;
     cursor: pointer;
 }
