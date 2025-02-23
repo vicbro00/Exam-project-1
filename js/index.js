@@ -58,7 +58,7 @@ function displayBlogGrid(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
-            <a href="/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}</a>
+            <a href="/post/index.html?id=${post.id}">${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}" onclick="viewPost('${post.id}')>` : ""}</a>
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
             <button onclick="viewPost('${post.id}')">Read More</button>
@@ -111,7 +111,7 @@ function showSlide(index) {
     carouselContainer.innerHTML = `
         <div class="slide">
             <h3>${posts[index]?.title}</h3>
-            ${posts[index]?.media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}">` : ""}
+            ${posts[index]?.media?.url ? `<img src="${posts[index].media.url}" alt="${posts[index].title}" onclick="viewPost('${posts.id}')>` : ""}
             <button onclick="viewPost('${posts[index].id}')">Read More</button>
         </div>
     `;
