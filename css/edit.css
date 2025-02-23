@@ -58,12 +58,6 @@ label {
 }
 
 /*Buttons*/
-#confirmBtn {
-    margin: auto;
-    display: flex;
-    margin-bottom: 1em;
-}
-
 #createPostBtn {
     margin: auto;
     display: flex;
@@ -72,6 +66,12 @@ label {
 
 .post-item button {
     margin: 1em 0;
+}
+
+.confirm-btn {
+    margin: auto;
+    display: flex;
+    margin-bottom: 1em;
 }
 
 .deleteBtn {
