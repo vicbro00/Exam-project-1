@@ -78,11 +78,10 @@ function displayPosts(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
-            ${post.media?.url ? `<img src="${post.media.url}" alt="Post image">` : ""}
+            ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title || 'Blog post image'}">` : ""}
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
         `;
-
         if (isIndexPage) {
             postContent += `<button onclick="viewPost('${post.id}')">Read More</button>`;
         } else if (!isPostPage) {
