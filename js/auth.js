@@ -16,8 +16,6 @@ if (window.location.pathname.includes("/Exam-project-1/account/login.html")) {
         event.preventDefault();
         login();
     });
-} else {
-    console.log("Not on the login page. Login script will not run.");
 }
 
 //Handles login process
@@ -55,7 +53,6 @@ function login() {
         localStorage.setItem("jwt", data.data.accessToken);
         localStorage.setItem("email", email.toLowerCase());
 
-        console.log("User is now signed in.");
         alert("You are now signed in!");
 
         window.location.href = "/Exam-project-1/index.html";
@@ -94,8 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const userData = { name, email, password, bio, bannerUrl, bannerAlt };
 
-            console.log("Sending registration data:", JSON.stringify(userData));
-
             fetch("https://v2.api.noroff.dev/auth/register", {
                 method: "POST",
                 headers: {
@@ -113,7 +108,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return response.json();
             })
             .then(data => {
-                console.log("User registered successfully:", data);
                 alert("Registration successful! You can now log in.");
                 window.location.href = "/Exam-project-1/account/login.html";
             })

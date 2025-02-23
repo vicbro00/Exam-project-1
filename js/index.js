@@ -152,23 +152,17 @@ let posts = [];
 
 //Displays the latest posts
 async function fetchLatestPosts() {
-    console.log("Function is running...");
-
     try {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
             headers: { "Authorization": `Bearer ${window.token}` }
         });
 
-        console.log("Response status:", response.status);
-
         if (!response.ok) throw new Error(`Failed to fetch posts: ${response.statusText}`);
 
         const data = await response.json();
-        console.log("Fetched data:", data);
 
         if (data.data && data.data.length > 0) {
             posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
-            console.log("Sorted posts:", posts);
             showSlide(currentSlide);
             createDots();
         } else {
@@ -282,9 +276,7 @@ function filterPosts(query) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded");
     if (window.location.pathname.includes("/Exam-project-1/index.html")) {
-        console.log("Fetching latest posts...");
         fetchLatestPosts();
     }
 });

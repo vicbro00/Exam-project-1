@@ -183,8 +183,6 @@ if (signOutButton.length > 0) {
     signOutButton.forEach(button => {
         button.addEventListener("click", signOut);
     });
-} else {
-    console.log("Sign-out button(s) not found.");
 }
 
 //Event listener for the hamburger icon

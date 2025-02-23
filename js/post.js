@@ -3,7 +3,6 @@ async function fetchPostById(postId) {
     const token = localStorage.getItem("jwt");
     const username = "VicB";
     const url = `https://v2.api.noroff.dev/blog/posts/${username}/${postId}`;
-    console.log("Fetching post with ID:", postId);
 
     const headers = {};
     if (token) {
@@ -12,13 +11,11 @@ async function fetchPostById(postId) {
 
     try {
         const response = await fetch(url, { headers });
-        console.log("Response status:", response.status);
         if (!response.ok) {
             throw new Error("Failed to fetch the post.");
         }
 
         const data = await response.json();
-        console.log("Post data:", data);
 
         const post = data.data;
         displayPosts(post);
@@ -31,8 +28,6 @@ async function fetchPostById(postId) {
 function displayPosts(post) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
-
-    console.log("Post object:", post);
 
     //Finds who the author of the post is
     const authorName = post.author && post.author.name ? post.author.name : "Unknown Author";

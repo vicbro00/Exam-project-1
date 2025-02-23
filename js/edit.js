@@ -13,13 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get("id");
 
-console.log("Post ID:", postId);
-
 //Fetches post by its ID
 async function fetchPostById(postId) {
     try {
         const token = localStorage.getItem("jwt");
-        console.log("Token:", token);
 
         const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB/${postId}`, {
             headers: { "Authorization": `Bearer ${token}` }
@@ -28,7 +25,6 @@ async function fetchPostById(postId) {
         if (!response.ok) throw new Error("Failed to fetch post");
 
         const data = await response.json();
-        console.log("API Response:", data);
         return data.data;
     } catch (error) {
         console.error("Error fetching post:", error);
@@ -46,7 +42,6 @@ async function populateFormWithPostData(postId) {
     const post = await fetchPostById(postId);
 
     if (post) {
-        console.log("Post Data:", post);
 
         document.getElementById("blogTitle").value = post.title;
         document.getElementById("blogContent").value = post.body;
