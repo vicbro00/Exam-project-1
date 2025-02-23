@@ -66,7 +66,6 @@
     overflow: scroll;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    -ms-overflow-style: none;
     gap: 1%;
 }
 
@@ -74,7 +73,6 @@
     width: 100%;
     height: 100%;
     flex: 1 0 100%;
-    background-attachment: white;
     border: solid rgb(2, 59, 44);
     border-width: 2px;
     box-sizing: border-box;
