@@ -236,14 +236,3 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (loadingSpinner) loadingSpinner.style.display = "none";
     }
 });
-
-document.getElementById("title").addEventListener("click", function (event) {
-    event.preventDefault();
-    window.location.href = "/index.html";
-});
-
-document.getElementById("title").addEventListener("click", function (event) {
-    event.preventDefault();
-    window.location.href = "/index.html";
-    fetchPosts();
-});
