@@ -5,6 +5,8 @@ let filteredPosts = [];
 let carouselPosts = [];
 let currentSlide = 0;
 
+const baseURL = window.location.origin;
+
 //Fetch posts from the API
 async function fetchPosts() {
     try {
@@ -48,7 +50,7 @@ function displayPosts(posts) {
         let postContent = `
             <h3>${post.title}</h3>
             ${post.media?.url ? `
-                <a href="/Exam-project-1/post/index.html?id=${post.id}">
+                <a href="post/index.html?id=${post.id}">
                     <img src="${post.media.url}" alt="${post.title || 'Blog post image'}">
                 </a>
             ` : ""}
@@ -70,7 +72,7 @@ function attachEventListeners() {
     document.querySelectorAll(".readMoreBtn").forEach(button => {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
-            window.location.href = `/Exam-project-1/post/index.html?id=${postId}`;
+            window.location.href = `/post/index.html?id=${postId}`;
         });
     });
 }
@@ -113,7 +115,7 @@ function showSlide(index) {
     carouselContainer.innerHTML = `
         <div class="slide">
             <h3>${post.title}</h3>
-            <a href="/Exam-project-1/post/index.html?id=${post.id}">
+            <a href="post/index.html?id=${post.id}">
                 ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
             </a>
             <p class="post-date">Published on: ${new Date(post.created).toLocaleDateString("en-GB", {
