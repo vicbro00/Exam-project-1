@@ -28,7 +28,7 @@ function toggleSortOrder() {
         if (loadingSpinner) {
             loadingSpinner.style.display = "none";
         }
-    }, 500);
+    }, 1000);
 }
 
 //Adds event listener to the sorting button

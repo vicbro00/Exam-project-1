@@ -52,7 +52,7 @@ if (nextBtn && prevBtn && carouselContainer) {
         setTimeout(() => {
             carouselContainer.scrollLeft += SLIDE_WIDTH;
             hideLoadingSpinner();
-        }, 500);
+        }, 1000);
     });
 
     prevBtn.addEventListener("click", () => {
@@ -60,7 +60,7 @@ if (nextBtn && prevBtn && carouselContainer) {
         setTimeout(() => {
             carouselContainer.scrollLeft -= SLIDE_WIDTH;
             hideLoadingSpinner();
-        }, 500);
+        }, 1000);
     });
 }
 
@@ -157,7 +157,7 @@ function handleHamburgerClick(event) {
         }
 
         hideLoadingSpinner();
-    }, 500);
+    }, 1000);
 }
 
 //Handles sign out function
@@ -176,7 +176,7 @@ function signOut() {
         if (loadingSpinner) loadingSpinner.style.display = "none";
 
         window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";  
-    }, 500);
+    }, 1000);
 }
 
 if (signOutButton.length > 0) {
@@ -203,7 +203,7 @@ document.addEventListener("click", (event) => {
             hambMenuLoggedOut.style.display = "none";
             hambMenuLoggedIn.style.display = "none";
             hideLoadingSpinner();
-        }, 500);
+        }, 1000);
     }
 });
 
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (loadingSpinner) loadingSpinner.style.display = "block";
 
     try {
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
     } catch (error) {
         console.error("Error during loading:", error);
     } finally {
