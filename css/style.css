@@ -32,6 +32,11 @@
     justify-content: space-evenly;
 }
 
+.flip-vertical {
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
 /*Carousel styling*/
 #carouselDots {
     margin: 0;

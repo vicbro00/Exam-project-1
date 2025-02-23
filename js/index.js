@@ -1,9 +1,11 @@
 // Global state
-let sortOrder = "newest"; // Tracks current sort order
-let allPosts = []; // Stores all posts fetched from the API
-let filteredPosts = []; // Stores posts after filtering or sorting
+let sortOrder = "newest";
+let allPosts = [];
+let filteredPosts = [];
+let carouselPosts = [];
+let currentSlide = 0;
 
-// Fetch posts from the API
+//Fetch posts from the API
 async function fetchPosts() {
     try {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
@@ -14,19 +16,24 @@ async function fetchPosts() {
 
         const data = await response.json();
         allPosts = data.data;
-        filteredPosts = [...allPosts]; // Initialize filteredPosts with all posts
-        displayPosts(filteredPosts); // Display posts after fetching
+        filteredPosts = [...allPosts];
+        displayPosts(filteredPosts);
+
+        //Carousel shows 3 latest posts
+        carouselPosts = allPosts.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
+        showSlide(currentSlide);
+        createDots();
     } catch (error) {
         console.error("Error fetching posts:", error);
     }
 }
 
-// Display posts in the blog grid
+//Display posts in the blog grid
 function displayPosts(posts) {
     const blogGrid = document.getElementById("blogGrid");
     if (!blogGrid) return;
 
-    blogGrid.innerHTML = ""; // Clear existing content
+    blogGrid.innerHTML = "";
 
     posts.forEach((post) => {
         const postElement = document.createElement("div");
@@ -40,7 +47,11 @@ function displayPosts(posts) {
 
         let postContent = `
             <h3>${post.title}</h3>
-            ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title || 'Blog post image'}">` : ""}
+            ${post.media?.url ? `
+                <a href="/Exam-project-1/post/index.html?id=${post.id}">
+                    <img src="${post.media.url}" alt="${post.title || 'Blog post image'}">
+                </a>
+            ` : ""}
             <p class="post-date">Published on: ${publishDate}</p>
             <p>${post.body}</p>
             <button class="readMoreBtn" data-id="${post.id}">Read More</button>
@@ -50,10 +61,11 @@ function displayPosts(posts) {
         blogGrid.appendChild(postElement);
     });
 
-    attachEventListeners(); // Re-attach event listeners after updating the DOM
+    attachEventListeners();
 }
 
-// Attach event listeners to buttons
+
+//Event listeners to buttons
 function attachEventListeners() {
     document.querySelectorAll(".readMoreBtn").forEach(button => {
         button.addEventListener("click", event => {
@@ -63,25 +75,25 @@ function attachEventListeners() {
     });
 }
 
-// Toggle sort order between newest and oldest
+//Toggle sort order
 function toggleSortOrder() {
     sortOrder = sortOrder === "newest" ? "oldest" : "newest";
     const sortButton = document.getElementById("sortingBtn");
 
-    // Update the sort button text
-    sortButton.textContent = `Sort by ${sortOrder === "newest" ? "Oldest" : "Newest"}`;
+    sortButton.innerHTML = `Sort by ${sortOrder === "newest" ? "Oldest" : "Newest"} 
+        <i class="fa-solid fa-arrow-down${sortOrder === "newest" ? "" : " flip-vertical"}"></i>
+    `;
 
-    // Sort posts
     filteredPosts.sort((a, b) => {
         const dateA = new Date(a.created);
         const dateB = new Date(b.created);
         return sortOrder === "newest" ? dateB - dateA : dateA - dateB;
     });
 
-    displayPosts(filteredPosts); // Display sorted posts
+    displayPosts(filteredPosts);
 }
 
-// Filter posts based on search query
+//Filter posts
 function filterPosts(query) {
     filteredPosts = allPosts.filter(post => {
         const title = post.title.toLowerCase();
@@ -89,22 +101,83 @@ function filterPosts(query) {
         return title.includes(query) || body.includes(query);
     });
 
-    displayPosts(filteredPosts); // Display filtered posts
+    displayPosts(filteredPosts);
 }
 
-// Initialize the page
-function initializePage() {
-    fetchPosts(); // Fetch and display posts
+//Shows carousel slide
+function showSlide(index) {
+    const carouselContainer = document.getElementById("carouselContainer");
+    if (!carouselContainer || carouselPosts.length === 0) return;
 
-    // Add event listener to the sorting button
+    const post = carouselPosts[index];
+    carouselContainer.innerHTML = `
+        <div class="slide">
+            <h3>${post.title}</h3>
+            <a href="/Exam-project-1/post/index.html?id=${post.id}">
+                ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title}">` : ""}
+            </a>
+            <p class="post-date">Published on: ${new Date(post.created).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric",
+            })}</p>
+            <button class="readMoreBtn" data-id="${post.id}">Read More</button>
+        </div>
+    `;
+
+    updateDots(index);
+}
+
+//Creates carousel dots
+function createDots() {
+    const carouselDots = document.getElementById("carouselDots");
+    if (!carouselDots) return;
+
+    carouselDots.innerHTML = carouselPosts.map((_, i) => `
+        <li class="carousel-dot ${i === currentSlide ? "active-dot" : ""}" data-index="${i}"></li>
+    `).join("");
+
+    document.querySelectorAll(".carousel-dot").forEach(dot => {
+        dot.addEventListener("click", () => {
+            currentSlide = parseInt(dot.dataset.index);
+            showSlide(currentSlide);
+        });
+    });
+}
+
+function updateDots(index) {
+    document.querySelectorAll(".carousel-dot").forEach((dot, i) => {
+        dot.classList.toggle("active-dot", i === index);
+    });
+}
+
+function changeSlide(direction) {
+    currentSlide += direction;
+
+    if (currentSlide >= carouselPosts.length) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = carouselPosts.length - 1;
+
+    showSlide(currentSlide);
+}
+
+//Initialize the page
+function initializePage() {
+    fetchPosts();
+
     document.getElementById("sortingBtn").addEventListener("click", toggleSortOrder);
 
-    // Add event listener to the search input
     document.getElementById("searchInput").addEventListener("input", (event) => {
         const searchQuery = event.target.value.trim().toLowerCase();
         filterPosts(searchQuery);
     });
+
+    const slideBtnPrev = document.getElementById("slideBtnPrev");
+    const slideBtnNext = document.getElementById("slideBtnNext");
+
+    if (slideBtnPrev && slideBtnNext) {
+        slideBtnPrev.addEventListener("click", () => changeSlide(-1));
+        slideBtnNext.addEventListener("click", () => changeSlide(1));
+    }
 }
 
-// Run initialization when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializePage);
