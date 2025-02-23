@@ -145,6 +145,7 @@
         grid-template-columns: auto auto;
         grid-template-rows: auto;
         justify-content: space-around;
+        align-items: start;
     }
     
     .slide img {

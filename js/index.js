@@ -97,6 +97,8 @@ function toggleSortOrder() {
         return sortOrder === "oldest" ? dateB - dateA : dateA - dateB;
     });
 
+    console.log("Posts after sorting:", posts); // Debugging line
+
     displayBlogGrid(posts);
 
     //Hides loading spinner after half a second
