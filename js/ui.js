@@ -179,13 +179,13 @@ function signOut() {
     }, 500);
 }
 
+if (signOutButton) {
+    signOutButton.addEventListener("click", signOut());
+}
+
 //Event listener for the hamburger icon
 if (hamburgerIcon) {
     hamburgerIcon.addEventListener("click", handleHamburgerClick);
-}
-
-if (signOutButton) {
-    signOutButton.addEventListener("click", signOut());
 }
 
 //Closes menu when clicking on somewhere on the page with loading spinner
