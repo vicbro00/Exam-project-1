@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const hamburgerIcon = document.getElementById("hamburgerIcon");
 const hambMenuLoggedOut = document.getElementById("hambMenuLoggedOut");
 const hambMenuLoggedIn = document.getElementById("hambMenuLoggedIn");
-const signOutButton = document.getElementById("signOutBtn");
+const signOutButton = document.querySelectorAll("sign-out-btn");
 
 //Toggles the menu depending on if the user is logged in or not
 function toggleMenu() {
