@@ -78,8 +78,7 @@ let posts = [];
 //Displays the latest posts
 async function fetchLatestPosts() {
     try {
-        const cacheBuster = `?cacheBuster=${new Date().getTime()}`;
-        const response = await fetch(`https://v2.api.noroff.dev/blog/posts/VicB${cacheBuster}`, {
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
             headers: { "Authorization": `Bearer ${window.token}` }
         });
 
