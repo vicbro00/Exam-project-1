@@ -6,12 +6,12 @@ function isLoggedIn() {
 function redirectIfNotLoggedIn() {
     if (!isLoggedIn()) {
         alert("You must be logged in to access this page.");
-        window.location.href = "/Exam-project-1/account/login.html";
+        window.location.href = "/account/login.html";
     }
 }
 
 //Check if this is the login page
-if (window.location.pathname.includes("/Exam-project-1/account/login.html")) {
+if (window.location.pathname.includes("/account/login.html")) {
     document.getElementById("loginForm").addEventListener("submit", function (event) {
         event.preventDefault();
         login();
@@ -55,7 +55,7 @@ function login() {
 
         alert("You are now signed in!");
 
-        window.location.href = "/Exam-project-1/index.html";
+        window.location.href = "/index.html";
     })
     .catch(error => {
         console.error("Error during login:", error);
@@ -66,7 +66,7 @@ function login() {
 //Adds event listener when document is loaded
 document.addEventListener("DOMContentLoaded", () => {
     //Checks if this is the register page
-    if (window.location.pathname.includes("/Exam-project-1/account/register.html")) {
+    if (window.location.pathname.includes("/account/register.html")) {
         const signUpBtn = document.getElementById("signUpBtn");
         const message = document.getElementById("message");
 
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(data => {
                 alert("Registration successful! You can now log in.");
-                window.location.href = "/Exam-project-1/account/login.html";
+                window.location.href = "/account/login.html";
             })
             .catch(error => {
                 console.error("Error during registration:", error);

@@ -175,7 +175,7 @@ function signOut() {
         
         if (loadingSpinner) loadingSpinner.style.display = "none";
 
-        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";  
+        window.location.href = "/index.html";  
     }, 1000);
 }
 
@@ -221,11 +221,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 document.getElementById("title").addEventListener("click", function (event) {
     event.preventDefault();
-    window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+    window.location.href = "/index.html";
 });
 
 document.getElementById("title").addEventListener("click", function (event) {
     event.preventDefault();
-    window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+    window.location.href = "/index.html";
     fetchPosts();
 });

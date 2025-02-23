@@ -33,7 +33,7 @@ async function deletePost(postId) {
         if (!response.ok) throw new Error("Failed to delete post");
 
         alert("Post deleted successfully!");
-        window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+        window.location.href = "/index.html";
 
     } catch (error) {
         console.error("Error deleting post:", error);
@@ -46,11 +46,11 @@ function attachEventListeners() {
         button.addEventListener("click", event => {
             const postId = event.target.dataset.id;
             if (button.classList.contains("editBtn")) {
-                window.location.href = `/Exam-project-1/post/edit.html?id=${postId}`;
+                window.location.href = `/post/edit.html?id=${postId}`;
             } else if (button.classList.contains("deleteBtn")) {
                 deletePost(postId);
             } else if (button.classList.contains("readMoreBtn")) {
-                window.location.href = `/Exam-project-1/post/index.html?id=${postId}`;
+                window.location.href = `/post/index.html?id=${postId}`;
             }
         });
     });
@@ -63,8 +63,8 @@ function displayPosts(posts) {
 
     blogGrid.innerHTML = "";
 
-    const isIndexPage = window.location.pathname === "/Exam-project-1/index.html";
-    const isPostPage = window.location.pathname.includes("/Exam-project-1/post/index.html");
+    const isIndexPage = window.location.pathname === "/index.html";
+    const isPostPage = window.location.pathname.includes("/post/index.html");
 
     posts.forEach((post) => { 
         const postElement = document.createElement("div");
