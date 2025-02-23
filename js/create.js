@@ -8,8 +8,45 @@ if (!token && window.location.pathname.includes("/post/create.html")) {
     window.location.href = "/account/login.html";
 }
 
+//Validate image URL format
+function isValidImageUrl(url) {
+    const validExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".bmp", ".svg"];
+    return validExtensions.some(ext => url.toLowerCase().endsWith(ext));
+}
+
+//Check if the image exists
+async function checkImageExists(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
+}
+
+//Validate image URL
+async function validateImageUrl(url) {
+    if (!isValidImageUrl(url)) {
+        alert("Invalid image URL: URL must end with a valid image file extension (e.g., .jpg, .png).");
+        return false;
+    }
+
+    const imageExists = await checkImageExists(url);
+    if (!imageExists) {
+        alert("Invalid image URL: The image does not exist or cannot be accessed.");
+        return false;
+    }
+
+    return true;
+}
+
 //Creates or updates a post
 async function createPost(title, body, publishDate, mediaUrl = "") {
+    if (mediaUrl && !(await validateImageUrl(mediaUrl))) {
+        isSubmitting = false;
+        return;
+    }
+    
     const username = localStorage.getItem("email");
     const postId = new URLSearchParams(window.location.search).get("id");
     const url = postId
