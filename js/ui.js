@@ -170,12 +170,7 @@ function signOut() {
         localStorage.removeItem("email");
         hambMenuLoggedOut.style.display = "block";
         hambMenuLoggedIn.style.display = "none";
-
-        if (hambMenuLoggedOut && hambMenuLoggedIn) {
-            hambMenuLoggedOut.style.display = "block";
-            hambMenuLoggedIn.style.display = "none";
-        }
-
+        
         alert("You are now signed out.");
         
         if (loadingSpinner) loadingSpinner.style.display = "none";
