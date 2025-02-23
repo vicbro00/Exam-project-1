@@ -59,6 +59,10 @@
     display: block;
 }
 
+.slide img:hover {
+    cursor: pointer;
+}
+
 .slide button {
     display: block;
 }
