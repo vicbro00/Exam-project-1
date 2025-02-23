@@ -114,6 +114,10 @@
     max-width: 8em;
 }
 
+.post-item img:hover {
+    cursor: pointer;
+}
+
 .post-item p {
     display: none;
 }
