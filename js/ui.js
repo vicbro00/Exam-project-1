@@ -220,3 +220,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (loadingSpinner) loadingSpinner.style.display = "none";
     }
 });
+
+window.onpageshow = function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+};
