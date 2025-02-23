@@ -1,6 +1,81 @@
 //Checks current sort order
 let sortOrder = "newest";
 
+//Function to display posts on the page
+async function fetchPosts() {
+    try {
+        //Fetches blogs from api
+        const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
+            headers: { "Authorization": `Bearer ${window.token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch posts");
+
+        const data = await response.json();
+        displayPosts(data.data);
+
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+    }
+}
+
+//Attach event listeners to buttons
+function attachEventListeners() {
+    document.querySelectorAll(".readMoreBtn").forEach(button => {
+        button.addEventListener("click", event => {
+            const postId = event.target.dataset.id;
+            if (button.classList.contains("readMoreBtn")) {
+                window.location.href = `/Exam-project-1/post/index.html?id=${postId}`;
+            }
+        });
+    });
+}
+
+//Function to display posts
+function displayPosts(posts) {
+    const blogGrid = document.getElementById("blogGrid");
+    if (!blogGrid) return;
+
+    blogGrid.innerHTML = "";
+
+    const isIndexPage = window.location.pathname === "/Exam-project-1/index.html";
+    const isPostPage = window.location.pathname.endsWith("index.html") || window.location.pathname === "/Exam-project-1/";
+
+    posts.forEach((post) => { 
+        const postElement = document.createElement("div");
+        postElement.classList.add("post-item");
+
+        const publishDate = new Date(post.created).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        });
+
+        let postContent = `
+            <h3>${post.title}</h3>
+            ${post.media?.url ? `<img src="${post.media.url}" alt="${post.title || 'Blog post image'}">` : ""}
+            <p class="post-date">Published on: ${publishDate}</p>
+            <p>${post.body}</p>
+        `;
+        if (isIndexPage) {
+            postContent += `<button onclick="viewPost('${post.id}')">Read More</button>`;
+        } else if (!isPostPage) {
+            postContent += `
+                <button class="editBtn" data-id="${post.id}">Edit</button>
+                <button class="deleteBtn" data-id="${post.id}">Delete</button>
+            `;
+        }
+
+        postElement.innerHTML = postContent;
+        blogGrid.appendChild(postElement);
+    });
+
+    attachEventListeners();
+}
+
+//Fetch posts when the page loads
+document.addEventListener("DOMContentLoaded", fetchPosts);
+
 //Toggles sort order between newest and oldest posts
 function toggleSortOrder() {
     sortOrder = sortOrder === "newest" ? "oldest" : "newest";
@@ -77,19 +152,23 @@ let posts = [];
 
 //Displays the latest posts
 async function fetchLatestPosts() {
+    console.log("Function is running...");
+
     try {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
             headers: { "Authorization": `Bearer ${window.token}` }
         });
 
-        if (!response.ok) throw new Error("Failed to fetch posts");
+        console.log("Response status:", response.status);
+
+        if (!response.ok) throw new Error(`Failed to fetch posts: ${response.statusText}`);
 
         const data = await response.json();
-        console.log("API Response:", data);
+        console.log("Fetched data:", data);
 
         if (data.data && data.data.length > 0) {
             posts = data.data.sort((a, b) => new Date(b.created) - new Date(a.created)).slice(0, 3);
-            console.log("Fetched posts:", posts);
+            console.log("Sorted posts:", posts);
             showSlide(currentSlide);
             createDots();
         } else {
@@ -141,7 +220,7 @@ function createDots() {
 
 //Displays posts when page loads
 document.addEventListener("DOMContentLoaded", () => {
-    if (window.location.pathname.includes("/Exam-project-1/index.html")) {
+    if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/Exam-project-1/") {
         fetchLatestPosts();
     }
 });
@@ -168,9 +247,9 @@ document.getElementById("slideBtnPrev").addEventListener("click", () => changeSl
 document.getElementById("slideBtnNext").addEventListener("click", () => changeSlide(1));
 
 document.addEventListener("DOMContentLoaded", async () => {
-    if (window.location.pathname.includes("/Exam-project-1/index.html")) {
+    if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/Exam-project-1/") {
         const response = await fetch("https://v2.api.noroff.dev/blog/posts/VicB", {
-            headers: { "Authorization": `Bearer ${token}` }
+            headers: { "Authorization": `Bearer ${window.token}` }
         });
 
         if (response.ok) {
@@ -203,7 +282,9 @@ function filterPosts(query) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded");
     if (window.location.pathname.includes("/Exam-project-1/index.html")) {
+        console.log("Fetching latest posts...");
         fetchLatestPosts();
     }
 });
