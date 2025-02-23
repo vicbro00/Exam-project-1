@@ -63,7 +63,7 @@
     </header>
 
     <main>
-        <h2>Signed in as: <span id="email"></as:span></h2>
+        <h2>Signed in as: <span id="email"></span></h2>
         <form class="edit-form" id="createPostForm">
             <label for="blogTitle">Blog title:</label>
             <input type="text" id="blogTitle">
@@ -73,9 +73,9 @@
             <input type="date" id="publishDate" required>
             <label for="blogImage">Blog image:</label>
             <input type="url" id="blogImage" placeholder="Enter image URL">
-            <img id="previewImage" alt="Image preview">
+            <img src="https://i.postimg.cc/fLFnS7r6/Skjermbilde-2025-02-23-015741.png" id="previewImage" alt="Image preview">
         </form>
-        <button class="confirm-btn" id="confirmBtn" type="submit">Confirm edits</button>
+        <button class="confirm-btn" type="submit">Confirm edits</button>
         <button id="confirmBtn" onclick="window.location.href='/post/create.html'">Create New Post</button>
         <div class="blog-grid" id="blogGrid"></div>
     </main>
