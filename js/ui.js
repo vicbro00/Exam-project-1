@@ -180,7 +180,7 @@ function signOut() {
 }
 
 if (signOutButton) {
-    signOutButton.addEventListener("click", signOut());
+    signOutButton.addEventListener("click", signOut);
 }
 
 //Event listener for the hamburger icon
