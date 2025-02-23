@@ -19,6 +19,10 @@
     color: rgb(0, 0, 0, 75%);
 }
 
+#searchLabel {
+    display: none;
+}
+
 .sort-bar {
     background-color: rgb(119, 176, 170);
     padding: 1em 0;
