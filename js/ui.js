@@ -220,3 +220,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (loadingSpinner) loadingSpinner.style.display = "none";
     }
 });
+
+//Make all icons accessible
+const icons = document.querySelectorAll('.icon[aria-hidden="true"]');
+icons.forEach(icon => {
+    icon.setAttribute("aria-hidden", "false");
+    icon.setAttribute("aria-label", "Star icon");
+});
