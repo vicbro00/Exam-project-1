@@ -28,7 +28,7 @@
     <header>
         <nav class="desktop-nav-logged-in" id="desktopLoggedIn">
             <ul>
-                <li><button class="sign-out-btn" aria-hidden="true">Sign out</button></li>
+                <li><button class="sign-out-btn" aria-hidden="false">Sign out</button></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="post/edit.html">Edit posts</a></li>
                 <li><a href="post/create.html">Create Posts</a></li>
@@ -36,7 +36,7 @@
         </nav>
         <nav class="desktop-nav-logged-out" id="desktopLoggedOut">
             <ul>
-                <li><button onclick="window.location.href='account/login.html';" aria-hidden="true">Sign in</button></li>
+                <li><button onclick="window.location.href='account/login.html';" aria-hidden="false">Sign in</button></li>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="account/register.html">Register</a></li>
             </ul>
@@ -47,7 +47,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="account/register.html">Register</a></li>
             </ul>
-            <button onclick="window.location.href='account/login.html';">Sign in</button>
+            <button onclick="window.location.href='account/login.html';" aria-hidden="false">Sign in</button>
         </nav>
         <nav class="hamb-menu-logged-in hidden" id="hambMenuLoggedIn">
             <ul>
@@ -55,7 +55,7 @@
                 <li><a href="post/edit.html">Edit posts</a></li>
                 <li><a href="post/create.html">Create posts</a></li>
             </ul>
-            <button class="sign-out-btn" aria-hidden="true">Sign out</button>
+            <button class="sign-out-btn" aria-hidden="false">Sign out</button>
             <div id="responseMessage"></div>
         </nav>
         <a href="index.html"><h1><span class="blue">Hot</span><span class="black">View</span> <span class="blue">Labs</span></h1></a>
@@ -96,9 +96,9 @@
         <div class="footer-bot">
             <p>&copy;HotViewLabs</p>
             <div>
-                <i class="fa-brands fa-square-instagram" aria-hidden="true"></i>
-                <i class="fa-brands fa-youtube" aria-hidden="true"></i>
-                <i class="fa-brands fa-square-github" aria-hidden="true"></i>
+                <i class="fa-brands fa-square-instagram" aria-hidden="false"></i>
+                <i class="fa-brands fa-youtube" aria-hidden="false"></i>
+                <i class="fa-brands fa-square-github" aria-hidden="false"></i>
             </div>
         </div>
     </footer>
