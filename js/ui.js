@@ -170,7 +170,7 @@ function signOut() {
         localStorage.removeItem("email");
         hambMenuLoggedOut.style.display = "block";
         hambMenuLoggedIn.style.display = "none";
-        
+
         alert("You are now signed out.");
         
         if (loadingSpinner) loadingSpinner.style.display = "none";
@@ -185,7 +185,7 @@ if (hamburgerIcon) {
 }
 
 if (signOutButton) {
-    signOutButton.addEventListener("click", signOut);
+    signOutButton.addEventListener("click", signOut());
 }
 
 //Closes menu when clicking on somewhere on the page with loading spinner
