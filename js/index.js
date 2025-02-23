@@ -12,7 +12,8 @@ async function fetchPosts() {
         if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
-        displayPosts(data.data);
+        allPosts = data.data;
+        displayPosts(allPosts);
 
     } catch (error) {
         console.error("Error fetching posts:", error);

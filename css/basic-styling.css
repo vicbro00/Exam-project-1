@@ -60,11 +60,6 @@ header {
     z-index: 1000;
 }
 
-header span {
-    color: white;
-    cursor: pointer;
-}
-
 header img {
     max-width: 4em;
     max-height: 4em;

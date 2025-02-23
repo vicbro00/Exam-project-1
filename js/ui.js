@@ -218,3 +218,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (loadingSpinner) loadingSpinner.style.display = "none";
     }
 });
+
+document.getElementById("title").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+});
+
+document.getElementById("title").addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "https://vicbro00.github.io/Exam-project-1/index.html";
+    fetchPosts();
+});
