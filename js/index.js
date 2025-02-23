@@ -127,7 +127,19 @@ function showSlide(index) {
         </div>
     `;
 
+    attachCarouselEventListeners();
+
     updateDots(index);
+}
+
+function attachCarouselEventListeners() {
+    const carouselReadMoreButtons = document.querySelectorAll("#carouselContainer .readMoreBtn");
+    carouselReadMoreButtons.forEach(button => {
+        button.addEventListener("click", event => {
+            const postId = event.target.dataset.id;
+            window.location.href = `/post/index.html?id=${postId}`;
+        });
+    });
 }
 
 //Creates carousel dots
