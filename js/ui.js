@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logUserSession();
 });
 
+//Display what user is logged in
 function logUserSession() {
     const token = localStorage.getItem("jwt");
     const email = localStorage.getItem("email");
